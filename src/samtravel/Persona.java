@@ -8,8 +8,7 @@ public class Persona {
 	private String nacionalidad;
 	
 	
-	public Persona(int cedula, String nombre, String nacionalidad) {
-		super();
+	public Persona(int cedula, String nombre, String nacionalidad) { 
 		this.cedula = cedula;
 		this.nombre = nombre;
 		this.nacionalidad = nacionalidad;
