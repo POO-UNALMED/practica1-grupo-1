@@ -12,29 +12,37 @@ public class Main {
 	public static void main(String[] args) {
 		
 		//Instancias precargadas
+		boolean sesion = true;
 		Agente agente1 = new Agente(1,"Lina","colombia","123","alma",0);
 		Viajero viajero1 = new Viajero(2,"Marcela","colombia","palo",0,agente1);
 
 		// Declaracion de variables
 		Texto.presentacion();
-		menuInicio();
+		while(sesion) {
+			menuInicio();
+			sesion = false;
+			
+		}
 
 	}
 	
 	public static void menuInicio() {
 		
 		int eleccion1 = intro.nextInt();
+		Viajero usuarioActivo;
+		Agente agenteActivo;
 		switch (eleccion1) {
 
 		case 1: // Usuario registrado. 
-			Viajero.ingresoUsuarioRegistrado();
-			
+			usuarioActivo = Viajero.ingresoUsuarioRegistrado();
+			usuarioActivo.menuUsuario();
 			break;
 		case 2: // Nuevo usuario.
-			Viajero.registrarNuevoUsuario();
+			usuarioActivo = Viajero.registrarNuevoUsuario();
+			usuarioActivo.menuUsuario();
 			break;
 		case 3: // Agente.
-			Agente.ingresoAgente();
+			agenteActivo = Agente.ingresoAgente();
 			break;
 		case 4: // Salir del sistema.
 			System.out.println("Ojalá vuelvas pronto.");

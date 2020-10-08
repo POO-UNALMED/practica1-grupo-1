@@ -1,6 +1,7 @@
 package samtravel;
 
 import samtravel.Main;
+import utilidad.Texto;
 
 import java.util.*;
 
@@ -26,9 +27,9 @@ public class Viajero extends Persona {
 	}
 
 	// METODOS
-	public static void ingresoUsuarioRegistrado() {
+	public static Viajero ingresoUsuarioRegistrado() {
 		
-		Persona viajero = null;
+		Viajero viajero = null;
 		boolean existe = false;
 		System.out.println(" ");
 		System.out.println("Cargando proceso de ingreso ...");
@@ -37,6 +38,7 @@ public class Viajero extends Persona {
 			System.out.println(" ");
 			System.out.println("A continuación ingrese su documento de identidad: ");
 			int documento = intro.nextInt();
+			System.out.println(" ");
 			System.out.println("También es necesaria su contrasena: ");
 			String contrasena = intro.next();
 			
@@ -49,6 +51,7 @@ public class Viajero extends Persona {
 				}
 			}
 			
+			//Confirmación de si las credenciales son correctas.
 			if (existe == true) {
 				System.out.println(" ");
 				System.out.println("Bienvenid@ nuevamente " + viajero.getNombre());
@@ -59,10 +62,11 @@ public class Viajero extends Persona {
 			}
 
 		}
-		System.out.println("Salió de While");
+		
+		return viajero;
 	}
-
-	public static void registrarNuevoUsuario() {
+	
+	public static Viajero registrarNuevoUsuario() {
 
 		boolean a = true;
 		String nombreNuevoUsuario;
@@ -102,11 +106,18 @@ public class Viajero extends Persona {
 		System.out.println(" ");
 		System.out.println(" Por ultimo el país del cuál usted es nacional.");
 		String nacional = intro.next();
-
-		new Viajero(documento, nombreNuevoUsuario, nacional, contrasenaNuevoUsuario, 0, null);
+		
 		System.out.println(" ");
 		System.out.println("Usted ha sido registrado exitosamente.");
+		
+		return new Viajero(documento, nombreNuevoUsuario, nacional, contrasenaNuevoUsuario, 0, null);
+		
 
+	}
+	
+	
+	public void menuUsuario() {
+		Texto.menuUsuario();
 	}
 
 	public void comprarViaje() {

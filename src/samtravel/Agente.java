@@ -19,9 +19,9 @@ public class Agente extends Persona{
 	
 	
 	//METODOS
-	public static void ingresoAgente() {
+	public static Agente ingresoAgente() {
 		
-		Persona agente = null;
+		Agente agente = null;
 		boolean existe = false;
 		System.out.println(" ");
 		System.out.println("Cargando proceso de ingreso ...");
@@ -52,7 +52,8 @@ public class Agente extends Persona{
 			}
 
 		}
-		System.out.println("Salió de While");
+		
+		return agente;
 	}
 	
 
