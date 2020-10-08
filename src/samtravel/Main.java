@@ -1,17 +1,49 @@
 package samtravel;
+
+import utilidad.*;
 import java.util.*;
+
+import utilidad.Texto;
 
 public class Main {
 
+	public static Scanner intro = new Scanner(System.in);
+
 	public static void main(String[] args) {
-		System.out.println(" ");
-		System.out.println(" ");
-		System.out.println("----- BIENVENIDOS A SAM-TRAVEL -----");
-		System.out.println(" ");
-		System.out.println(" ");
-		System.out.println("Estamos aquí para ofrecerles la mejor experiencia de viaje posible");
-		System.out.println("¿Es usted un usuari@ registrad@ en nuestro sistema?");
-		System.out.println(" ");
+		
+		//Instancias precargadas
+		Agente agente1 = new Agente(1,"Lina","colombia","123","alma",0);
+		Viajero viajero1 = new Viajero(2,"Marcela","colombia","palo",0,agente1);
+
+		// Declaracion de variables
+		Texto.presentacion();
+		menuInicio();
+
 	}
+	
+	public static void menuInicio() {
+		
+		int eleccion1 = intro.nextInt();
+		switch (eleccion1) {
+
+		case 1: // Usuario registrado. 
+			Viajero.ingresoUsuarioRegistrado();
+			
+			break;
+		case 2: // Nuevo usuario.
+			Viajero.registrarNuevoUsuario();
+			break;
+		case 3: // Agente.
+			Agente.ingresoAgente();
+			break;
+		case 4: // Salir del sistema.
+			System.out.println("Ojalá vuelvas pronto.");
+			break;
+		}
+	}
+
+
+
+	
 
 }

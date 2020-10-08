@@ -6,12 +6,14 @@ public class Persona {
 	private int cedula;
 	private String nombre;
 	private String nacionalidad;
+	private String contrasena;
 	
 	
-	public Persona(int cedula, String nombre, String nacionalidad) { 
+	public Persona(int cedula, String nombre, String nacionalidad,String contrasena) { 
 		this.cedula = cedula;
 		this.nombre = nombre;
 		this.nacionalidad = nacionalidad;
+		this.contrasena = contrasena;
 	}
 
 	public Persona() {
@@ -54,5 +56,12 @@ public class Persona {
 		this.nacionalidad = nacionalidad;
 	}
 	
+	public String getContrasena() {
+		return contrasena;
+	}
+	
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
+	}
 	
 }
