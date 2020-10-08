@@ -14,14 +14,14 @@ public class Main {
 		//Instancias precargadas
 		boolean sesion = true;
 		Agente agente1 = new Agente(1,"Lina","colombia","123","alma",0);
-		Viajero viajero1 = new Viajero(2,"Marcela","colombia","palo",0,agente1);
+		Viajero viajero1 = new Viajero(2,"Sammir","colombia","123",1000,agente1);
+		Viajero viajero2 = new Viajero(3,"Marcela","colombia","palo",0,agente1);
 
 		// Declaracion de variables
 		Texto.presentacion();
 		while(sesion) {
 			menuInicio();
 			sesion = false;
-			
 		}
 
 	}
@@ -36,6 +36,7 @@ public class Main {
 		case 1: // Usuario registrado. 
 			usuarioActivo = Viajero.ingresoUsuarioRegistrado();
 			usuarioActivo.menuUsuario();
+			System.out.println("Ojalá vuelvas pronto.");
 			break;
 		case 2: // Nuevo usuario.
 			usuarioActivo = Viajero.registrarNuevoUsuario();
