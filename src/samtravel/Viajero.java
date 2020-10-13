@@ -20,13 +20,47 @@ public class Viajero extends Persona {
 
 	}
 
-	public Viajero(int cedula, String nombre, String nacionalidad, String contrasena, int presupuesto, Persona agente) {
-		super(cedula, nombre, nacionalidad, contrasena);
+	public Viajero(int cedula, String nombre, String nacionalidad, int presupuesto, Persona agente) {
+		super(cedula, nombre, nacionalidad);
 		this.presupuesto = presupuesto;
 		this.agente = agente;
 		listaViajeros.add(this);
 	}
+	
+	//MÉTODOS
+	
+	
+	
+	
+	
+	// GETTERS AND SETTERS
 
+	public int getPresupuesto() {
+		return presupuesto;
+	}
+
+	public void setPresupuesto(int presupuesto) {
+		this.presupuesto = presupuesto;
+	}
+
+	public Persona getAgente() {
+		return agente;
+	}
+
+	public void setAgente(Persona agente) {
+		this.agente = agente;
+	}
+
+	public ArrayList<Persona> getRelativos() {
+		return relativos;
+	}
+
+	public void setRelativos(ArrayList<Persona> relativos) {
+		this.relativos = relativos;
+	}
+	
+	
+/* A PARTIR DE AQUÍ ES CÓDIGO BASURA QUE NO SÉ SI USE
 	// METODOS
 	public static Viajero ingresoUsuarioRegistrado() {
 
@@ -111,7 +145,7 @@ public class Viajero extends Persona {
 		System.out.println(" ");
 		System.out.println("Usted ha sido registrado exitosamente.");
 
-		return new Viajero(documento, nombreNuevoUsuario, nacional, contrasenaNuevoUsuario, 0, null);
+		return new Viajero(documento, nombreNuevoUsuario, nacional,  0, null);
 
 	}
 
@@ -235,30 +269,6 @@ public class Viajero extends Persona {
 
 	}
 
-	// GETTERS AND SETTERS
-
-	public int getPresupuesto() {
-		return presupuesto;
-	}
-
-	public void setPresupuesto(int presupuesto) {
-		this.presupuesto = presupuesto;
-	}
-
-	public Persona getAgente() {
-		return agente;
-	}
-
-	public void setAgente(Persona agente) {
-		this.agente = agente;
-	}
-
-	public ArrayList<Persona> getRelativos() {
-		return relativos;
-	}
-
-	public void setRelativos(ArrayList<Persona> relativos) {
-		this.relativos = relativos;
-	}
+*/
 
 }

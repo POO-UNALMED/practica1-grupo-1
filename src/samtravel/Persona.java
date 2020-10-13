@@ -1,19 +1,17 @@
 package samtravel;
 import java.util.*;
 
-public class Persona {
+public abstract class Persona {
 	
 	private int cedula;
 	private String nombre;
 	private String nacionalidad;
-	private String contrasena;
 	
 	
-	public Persona(int cedula, String nombre, String nacionalidad,String contrasena) { 
+	public Persona(int cedula, String nombre, String nacionalidad) { 
 		this.cedula = cedula;
 		this.nombre = nombre;
 		this.nacionalidad = nacionalidad;
-		this.contrasena = contrasena;
 	}
 
 	public Persona() {
@@ -21,13 +19,9 @@ public class Persona {
 	}
 	
 	// MÉTODOS
-	public void cambiarNombre(Persona persona,String nuevoNombre) {
-		persona.setNombre(nuevoNombre);
-	}
+	public abstract void cambiarNombre(Persona persona,String nuevoNombre);
 		
-	public void cambiarNacionalidad(Persona persona, String nacionalidad) {
-		persona.setNacionalidad(nacionalidad);
-	}
+	public abstract void cambiarNacionalidad(Persona persona, String nacionalidad);
 	
 	
 	// GETTERS AND SETTERS
@@ -54,14 +48,6 @@ public class Persona {
 
 	public void setNacionalidad(String nacionalidad) {
 		this.nacionalidad = nacionalidad;
-	}
-	
-	public String getContrasena() {
-		return contrasena;
-	}
-	
-	public void setContrasena(String contrasena) {
-		this.contrasena = contrasena;
 	}
 	
 }

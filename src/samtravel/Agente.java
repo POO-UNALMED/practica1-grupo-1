@@ -3,15 +3,16 @@ import java.util.*;
 
 public class Agente extends Persona{
 	
-	String empresa;
-	int comision;
+	private String empresa;
+	private int comision;
+	private String contrasena;
 	private ArrayList<Persona> clientes = new ArrayList<>() ;
 	static ArrayList<Agente> listaAgentes = new ArrayList<>();
 	public static Scanner intro = new Scanner(System.in);
 	
 	//CONSTRUCTOR
 	public Agente(int cedula, String nombre, String nacionalidad, String contrasena, String empresa, int comision) {
-		super(cedula, nombre, nacionalidad, contrasena);
+		super(cedula, nombre, nacionalidad);
 		this.empresa = empresa;
 		this.comision = comision;
 		listaAgentes.add(this);
