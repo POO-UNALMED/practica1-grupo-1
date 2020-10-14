@@ -18,48 +18,14 @@ public class Agente extends Persona{
 		listaAgentes.add(this);
 	}
 	
-	
-	//METODOS
-	public static Agente ingresoAgente() {
+	public void cambiarNombre(Persona persona,String nuevoNombre) {
 		
-		Agente agente = null;
-		boolean existe = false;
-		System.out.println(" ");
-		System.out.println("Cargando proceso de ingreso ...");
-		
-		while (existe == false) {
-			System.out.println(" ");
-			System.out.println("A continuación ingrese su documento de identidad: ");
-			int documento = intro.nextInt();
-			System.out.println("También es necesaria su contrasena: ");
-			String contrasena = intro.next();
-			
-			//Verificar si existe el Viajero.
-			for (int i = 0; i < listaAgentes.size(); i++) {
-				if (documento == listaAgentes.get(i).getCedula()
-						&& contrasena.equals(listaAgentes.get(i).getContrasena())) {
-					agente = listaAgentes.get(i);
-					existe = true;
-				}
-			}
-			
-			if (existe == true) {
-				System.out.println(" ");
-				System.out.println("Bienvenid@ nuevamente " + agente.getNombre());
-				// Método que llama al Menú de usuarios registrados.
-			} else {
-				System.out.println(" ");
-				System.out.println("Su documento y/o contraseña no son válidos, por favor vuelvalo a intentar. ");
-			}
-
-		}
-		
-		return agente;
 	}
 	
-
-
-
+	public void cambiarNacionalidad(Persona persona, String nacionalidad) {
+		
+	}
+	
 	public void venderViaje() {
 		
 	}
@@ -67,7 +33,6 @@ public class Agente extends Persona{
 	public void crearNuevoDestino() {
 		
 	}
-	
 	
 	// GETTERS AND SETTERS
 	

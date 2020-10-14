@@ -41,12 +41,13 @@ public class Main {
 				menuVenta();
 				break;
 			case 0:
+				System.out.println(" ");
+				System.out.println("Vuelva pronto.");
 				sesion = false;
 				break;
 			}
 		}
-		System.out.println(" ");
-		System.out.println("Vuelva pronto.");
+
 	}
 
 	public static void menuViajero() {

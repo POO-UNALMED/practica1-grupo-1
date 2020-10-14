@@ -25,7 +25,6 @@ public abstract class Persona {
 	
 	
 	// GETTERS AND SETTERS
-	
 	public int getCedula() {
 		return cedula;
 	}
