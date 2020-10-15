@@ -17,17 +17,17 @@ public class Main {
         int eleccion = 0;
         int eleccion2 = 0;
 
-        Agente agenteSupremo = new Agente(1, "SAM", "Colombia", "123", "alma", 0);
+        Agente agenteSupremo = new Agente(10, "SAM", "Colombia", "123", "alma", 0);
 
         Viajero viajero1 = new Viajero(1, "Carlos", "Colombia", 1000, agenteSupremo);
-        Viajero viajero2 = new Viajero(3, "Marcela", "Colombia", 2000, agenteSupremo);
+        Viajero viajero2 = new Viajero(2, "Marcela", "Colombia", 2000, agenteSupremo);
         Viajero viajero3 = new Viajero(3, "Alejandra", "Alemania", 0, agenteSupremo);
 
         ArrayList<String> nacionalidades1;
         nacionalidades1 = new ArrayList<>();
 
         nacionalidades1.add("Colombia");
-        Destino destino1 = new Destino("San �ndres", 973, nacionalidades1);
+        Destino destino1 = new Destino("San Andres", 973, nacionalidades1);
 
         Hotel hotel1 = new Hotel("Hotelucho", 190, destino1, 100);
 
@@ -305,4 +305,6 @@ public class Main {
         }
 
     }
+    
+    
 }

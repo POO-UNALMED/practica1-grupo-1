@@ -1,7 +1,7 @@
 package samtravel;
 
-import samtravel.Main;
 import utilidad.Texto;
+import samtravel.*;
 
 import java.util.*;
 

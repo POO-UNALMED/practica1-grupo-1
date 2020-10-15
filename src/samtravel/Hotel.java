@@ -6,7 +6,7 @@ public class Hotel {
 	Destino destino;
 	int capacidad;
 	ArrayList<Viajero> visitantes = new ArrayList<>();
-	ArrayList<Hotel> hoteles = new ArrayList<>();
+	static ArrayList<Hotel> hoteles = new ArrayList<>();
 	
 	public Hotel(String nombre, int costo, Destino destino, int capacidad) {
 		this.nombre = nombre;

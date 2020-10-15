@@ -6,7 +6,7 @@ public class Agente extends Persona{
 	private String empresa;
 	private int comision;
 	private String contrasena;
-	private ArrayList<Persona> clientes = new ArrayList<>() ;
+	public ArrayList<Viajero> listaClientes = new ArrayList<>();
 	static ArrayList<Agente> listaAgentes = new ArrayList<>();
 	public static Scanner intro = new Scanner(System.in);
 	
@@ -59,10 +59,5 @@ public class Agente extends Persona{
 	public void setClientes(ArrayList<Persona> clientes) {
 		this.clientes = clientes;
 	}
-	
-	
-	
-	
-	
-	
+		
 }
