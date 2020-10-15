@@ -4,8 +4,8 @@ public class Transporte {
 	String tipo;
 	int velocidad;
 	int costoKM;
+	
 	public Transporte(String tipo, int velocidad, int costoKM) {
-		super();
 		this.tipo = tipo;
 		this.velocidad = velocidad;
 		this.costoKM = costoKM;
