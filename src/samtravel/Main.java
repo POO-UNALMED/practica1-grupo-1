@@ -21,7 +21,14 @@ public class Main {
 		Viajero viajero1 = new Viajero(2, "Carlos", "Colombia", 1000, agenteSupremo);
 		Viajero viajero2 = new Viajero(3, "Marcela", "Colombia", 0, agenteSupremo);
 		Viajero viajero3 = new Viajero(3, "Alejandra", "Alemania", 0, agenteSupremo);
-
+		
+		ArrayList<String> nacionalidades1 = new ArrayList<>();
+		nacionalidades1.add("Colombia");
+		Destino destino1 = new Destino("San Ándres", 973, nacionalidades1);
+		
+		Hotel hotel1 = new Hotel("Hotelucho", 190, destino1, 100);
+		
+		
 		Texto.presentacion();
 		while (sesion) {
 			Texto.menuUsuario();

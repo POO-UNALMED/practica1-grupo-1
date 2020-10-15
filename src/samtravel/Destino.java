@@ -7,8 +7,8 @@ public class Destino {
 	int distancia;
 	ArrayList<Hotel> hoteles = new ArrayList<>();
 	ArrayList<String> nacionalidades = new ArrayList<>();
+	
 	public Destino(String nombre, int distancia, ArrayList<String> nacionalidades) {
-		super();
 		this.nombre = nombre;
 		this.distancia = distancia;
 		this.nacionalidades = nacionalidades;
@@ -37,6 +37,7 @@ public class Destino {
 	public void setHoteles(ArrayList<Hotel> hoteles) {
 		this.hoteles = hoteles;
 	}
+	
 	
 	
 
