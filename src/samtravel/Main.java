@@ -15,7 +15,7 @@ public class Main {
 		boolean sesion = true;
 		int eleccion = 0;
 		int eleccion2 = 0;
-
+		//Linea que el otro codigo no tiene.
 		Agente agenteSupremo = new Agente(1, "SAM", "Colombia", "123", "alma", 0);
 
 		Viajero viajero1 = new Viajero(2, "Carlos", "Colombia", 1000, agenteSupremo);
@@ -53,12 +53,17 @@ public class Main {
 	public static void menuViajero() {
 		boolean sesion = true;
 		int eleccion = 0;
+		ArrayList<Viajero> listaViajero;
 		while (sesion) {
 			Texto.menuViajero();
 			eleccion = intro.nextInt();
 			switch (eleccion) {
 			case 1:
-				System.out.println("Ver listado de clientes.");
+				System.out.println("Aquí se van a imprimir clientes");
+				listaViajero = Viajero.listadoClientes();
+				for(int i = 0; i < listaViajero.size();i++) {
+					System.out.println(listaViajero.get(i).getNombre());
+				}
 				break;
 			case 2:
 				System.out.println("Mejor Viajero.");

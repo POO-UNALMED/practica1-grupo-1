@@ -10,7 +10,7 @@ public class Viajero extends Persona {
 	private int presupuesto;
 	private Persona agente;
 	private int millas;
-	private ArrayList<Persona> relativos = new ArrayList<>();
+	private ArrayList<Viajero> relativos = new ArrayList<>();
 	static ArrayList<Viajero> listaViajeros = new ArrayList<>();
 	public static Scanner intro = new Scanner(System.in);
 
@@ -36,6 +36,9 @@ public class Viajero extends Persona {
 	public void cambiarNacionalidad(Persona persona, String nacionalidad) {
 		
 	}
+	public static ArrayList<Viajero> listadoClientes() {
+		return listaViajeros;
+	}
 	
 	// GETTERS AND SETTERS
 
@@ -54,16 +57,5 @@ public class Viajero extends Persona {
 	public void setAgente(Persona agente) {
 		this.agente = agente;
 	}
-
-	public ArrayList<Persona> getRelativos() {
-		return relativos;
-	}
-
-	public void setRelativos(ArrayList<Persona> relativos) {
-		this.relativos = relativos;
-	}
 	
-	
-
-
 }
