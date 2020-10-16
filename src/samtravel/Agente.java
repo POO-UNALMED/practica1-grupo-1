@@ -1,5 +1,6 @@
 package samtravel;
 import java.util.*;
+import java.util.Map.Entry;
 
 public class Agente extends Persona{
 	
@@ -9,9 +10,10 @@ public class Agente extends Persona{
 	public ArrayList<Viajero> listaClientes = new ArrayList<>();
 	static ArrayList<Agente> listaAgentes = new ArrayList<>();
 	public static Scanner intro = new Scanner(System.in);
+	private int numeroClientes;
 	
 	//CONSTRUCTOR
-	public Agente(int cedula, String nombre, String nacionalidad, String contrasena, String empresa, int comision) {
+	public Agente(int cedula, String nombre, String nacionalidad, String empresa, int comision, String contrasena) {
 		super(cedula, nombre, nacionalidad);
 		this.empresa = empresa;
 		this.comision = comision;
@@ -34,6 +36,29 @@ public class Agente extends Persona{
 		
 	}
 	
+	public static List<Entry<String, Integer>> mejoresAgentes() {
+		HashMap<String, Integer> agentes = new HashMap<>();
+		
+		
+		for(Agente agente : listaAgentes) {
+			
+			agentes.put(agente.getNombre(), agente.getNumeroClientes());						
+		}
+		
+		Set<Entry<String, Integer>> entrySet = agentes.entrySet();
+		
+		List<Entry<String, Integer>> list = new ArrayList<>(entrySet);
+		
+		Collections.sort(list, (o1, o2) -> o1.getValue().compareTo(o2.getValue()));
+		
+		return list;
+		
+		
+		
+		
+		
+	}
+	
 	// GETTERS AND SETTERS
 	
 	public String getEmpresa() {
@@ -51,13 +76,23 @@ public class Agente extends Persona{
 	public void setComision(int comision) {
 		this.comision = comision;
 	}
-        
-	public ArrayList<Persona> getClientes() {
-		return clientes;
+
+	
+	
+	
+	public static ArrayList<Agente> getListaAgentes() {
+		return listaAgentes;
+	}
+
+
+	public void setNumeroClientes() {
+		this.numeroClientes +=1;
+	}
+	
+	public int getNumeroClientes() {
+		return numeroClientes;
 	}
         
-	public void setClientes(ArrayList<Persona> clientes) {
-		this.clientes = clientes;
-	}
+	
 		
 }

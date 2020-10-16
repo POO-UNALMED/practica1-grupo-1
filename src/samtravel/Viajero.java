@@ -18,11 +18,13 @@ public class Viajero extends Persona {
 
     }
 
-    public Viajero(int cedula, String nombre, String nacionalidad, int presupuesto, Persona agente) {
+    public Viajero(int cedula, String nombre, String nacionalidad, int presupuesto, Agente agente) {
         super(cedula, nombre, nacionalidad);
         this.presupuesto = presupuesto;
         this.agente = agente;
+        agente.listaClientes.add(this);
         listaViajeros.add(this);
+        agente.setNumeroClientes();
     }
 
     //M�TODOS

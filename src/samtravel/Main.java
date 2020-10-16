@@ -1,6 +1,6 @@
 package samtravel;
-
 import utilidad.*;
+import java.util.Map.Entry;
 import java.util.*;
 
 import utilidad.Texto;
@@ -12,19 +12,32 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // Instancias
-        boolean sesion = true;
+    	boolean sesion = true;
         int eleccion = 0;
         int eleccion2 = 0;
+        
+        // Super usuario que tiene acceso a todo
+        Agente agenteSupremo = new Agente(10, "SAM", "Colombia", "alma", 0, "1234");
 
-        Agente agenteSupremo = new Agente(10, "SAM", "Colombia", "123", "alma", 0);
+        
+        //Primero creamos los agentes ya que cuando se cree un viajero se le debe de asignar el agente 
+        Agente agente1 = new Agente(1087904564, "Carlos Bustamente", "Colombia", "Viaja facil", 10, "1234");
+        Agente agente2 = new Agente(1094520234, "Juan Ramirez", "Colombia", "Despegar", 15, "1234");
+        Agente agente3 = new Agente(1087904564, "Lucas Bastidas", "Colombia", "Despegar", 15, "1234");
+        
+        
+        
+        //Creamos 3 viajeros
+        Viajero viajero1 = new Viajero(1, "Carlos", "Colombia", 1000, agente2);
+        Viajero viajero2 = new Viajero(2, "Marcela", "Colombia", 2000, agente2);
+        Viajero viajero3 = new Viajero(3, "Luisa", "Alemania", 0, agente1);
+        Viajero viajero4 = new Viajero(3, "Andrea", "Alemania", 0, agente1);
+        Viajero viajero5 = new Viajero(3, "Estefania", "Rusia", 0, agente1);
+        Viajero viajero6 = new Viajero(3, "Diana", "Inglaterra", 0, agente3);
 
-        Viajero viajero1 = new Viajero(1, "Carlos", "Colombia", 1000, agenteSupremo);
-        Viajero viajero2 = new Viajero(2, "Marcela", "Colombia", 2000, agenteSupremo);
-        Viajero viajero3 = new Viajero(3, "Alejandra", "Alemania", 0, agenteSupremo);
-
-        ArrayList<String> nacionalidades1;
-        nacionalidades1 = new ArrayList<>();
+        
+        
+        ArrayList<String> nacionalidades1 = new ArrayList<>();
 
         nacionalidades1.add("Colombia");
         Destino destino1 = new Destino("San Andres", 973, nacionalidades1);
@@ -34,7 +47,7 @@ public class Main {
         Transporte transporte1 = new Transporte("avion", 10, 10);
 
         Texto.presentacion();
-        while (sesion) {
+        while (true) {
             Texto.menuUsuario();
             eleccion = intro.nextInt();
             switch (eleccion) {
@@ -57,6 +70,21 @@ public class Main {
                     sesion = false;
                     break;
             }
+//            if (eleccion == 1) {
+//            	menuViajero();
+//            }
+//            else if (eleccion == 2) {
+//            	menuAgente();
+//            }
+//            else if (eleccion == 3) {
+//            	menuTurismo();
+//            }
+//            else if (eleccion == 4) {
+//            	menuVenta();
+//            }
+//            else {
+//            	System.out.println("Has escrito una opcion invalida intentalo nuevamente escogiendo entre 1 de las 4 opciones");
+//            }
         }
 
     }
@@ -91,27 +119,39 @@ public class Main {
         }
     }
 
+    
     public static void menuAgente() {
         boolean sesion = true;
         int eleccion = 0;
-        while (sesion) {
-            Texto.menuAgente();
-            eleccion = intro.nextInt();
-            switch (eleccion) {
-                case 1:
-                    System.out.println("Ver listado de agentes.");
-                    break;
-                case 2:
-                    System.out.println("Agente con mejores ventas.");
-                    break;
-                case 3:
-                    System.out.println("Clientes por agentes.");
-                    break;
-                case 0:
-                    sesion = false;
-                    break;
-
+        Texto.menuAgente();
+        while (sesion) {            
+            eleccion = intro.nextInt();            
+            if(eleccion == 1) {
+            	System.out.println("Listado de agentes:");
+            	ArrayList<Agente> agentes = Agente.getListaAgentes();
+            	for(Agente agente : agentes) {
+        			System.out.println(agente.getNombre());
+        		}
+            	break;
             }
+            if(eleccion == 2) {
+            	System.out.println("Agentes con mas clientes");
+            	Agente.mejoresAgentes();
+            	List<Entry<String, Integer>> list = Agente.mejoresAgentes();
+            	for(int i = list.size() - 1; i > list.size() -4 ; i --){
+        			System.out.println(list.get(i));
+        		}
+            	break;
+            }
+            if(eleccion == 3) {
+            	System.out.println("Clientes por agente");
+            	break;
+            }
+            else {
+            	System.out.println("Has seleccionado una opcion invalida intentalo de nuevo eligiendo del 1 al 3, si deseas volver al menu anterior presiona 0");
+            	
+            }
+            Texto.menuAgente();  
 
         }
     }
