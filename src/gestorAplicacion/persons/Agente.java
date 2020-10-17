@@ -1,4 +1,6 @@
-package samtravel;
+package gestorAplicacion.persons;
+import gestorAplicacion.persons.Persona;
+import gestorAplicacion.persons.Viajero;
 import java.util.*;
 import java.util.Map.Entry;
 

@@ -1,4 +1,4 @@
-package utilidad;
+package uiMain;
 import java.util.*;
 
 public class Texto {

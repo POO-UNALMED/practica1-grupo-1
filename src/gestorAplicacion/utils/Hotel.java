@@ -1,4 +1,7 @@
-package samtravel;
+package gestorAplicacion.utils;
+import gestorAplicacion.utils.Destino;
+import gestorAplicacion.persons.Viajero;
+import gestorAplicacion.persons.Viajero;
 import java.util.*;
 public class Hotel {
 	String nombre;

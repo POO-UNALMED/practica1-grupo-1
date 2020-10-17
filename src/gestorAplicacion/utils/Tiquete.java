@@ -1,4 +1,9 @@
-package samtravel;
+package gestorAplicacion.utils;
+
+import gestorAplicacion.persons.Agente;
+import gestorAplicacion.utils.Destino;
+import gestorAplicacion.persons.Viajero;
+import gestorAplicacion.persons.Viajero;
 
 public class Tiquete {
 	Viajero viajero;

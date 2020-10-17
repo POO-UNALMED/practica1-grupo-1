@@ -1,7 +1,6 @@
-package samtravel;
+package gestorAplicacion.persons;
 
-import utilidad.Texto;
-import samtravel.*;
+import uiMain.Texto;
 
 import java.util.*;
 
@@ -10,7 +9,7 @@ public class Viajero extends Persona {
     private int presupuesto;
     private Persona agente;
     private int millas;
-    static ArrayList<Viajero> listaViajeros = new ArrayList<>();
+    public static ArrayList<Viajero> listaViajeros = new ArrayList<>();
     public static Scanner intro = new Scanner(System.in);
 
     // CONSTRUCTORES

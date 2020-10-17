@@ -1,4 +1,4 @@
-package samtravel;
+package gestorAplicacion.utils;
 
 public class Transporte {
 	String tipo;

@@ -1,4 +1,4 @@
-package samtravel;
+package gestorAplicacion.persons;
 import java.util.*;
 
 public abstract class Persona {
@@ -18,7 +18,7 @@ public abstract class Persona {
 		
 	}
 	
-	// MÉTODOS
+	// Mï¿½TODOS
 	public abstract void cambiarNombre(Persona persona,String nuevoNombre);
 		
 	public abstract void cambiarNacionalidad(Persona persona, String nacionalidad);

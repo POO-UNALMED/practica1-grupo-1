@@ -1,10 +1,14 @@
-package samtravel;
-import utilidad.*;
+package uiMain;
+import gestorAplicacion.persons.Agente;
+import gestorAplicacion.utils.Destino;
+import gestorAplicacion.utils.Hotel;
+import gestorAplicacion.utils.Tiquete;
+import gestorAplicacion.utils.Transporte;
+import gestorAplicacion.persons.Viajero;
 import java.util.Map.Entry;
 import java.util.*;
 
-import utilidad.Texto;
-import samtravel.*;
+import uiMain.Texto;
 
 public class Main {
 
@@ -47,7 +51,7 @@ public class Main {
         Transporte transporte1 = new Transporte("avion", 10, 10);
 
         Texto.presentacion();
-        while (true) {
+        while (sesion) {
             Texto.menuUsuario();
             eleccion = intro.nextInt();
             switch (eleccion) {
