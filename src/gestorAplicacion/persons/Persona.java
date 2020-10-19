@@ -18,7 +18,7 @@ public abstract class Persona {
 		
 	}
 	
-	// M�TODOS
+	// METODOS
 	public abstract void cambiarNombre(Persona persona,String nuevoNombre);
 		
 	public abstract void cambiarNacionalidad(Persona persona, String nacionalidad);

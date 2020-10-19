@@ -4,14 +4,21 @@ import java.util.ArrayList;
 
 public class Destino {
 	String nombre;
+	String pais;
 	int distancia;
 	ArrayList<Hotel> hoteles = new ArrayList<>();
-	ArrayList<String> nacionalidadesAceptadas = new ArrayList<>();
+	static ArrayList<String> paisSinVisa = new ArrayList<>();
 	
-	public Destino(String nombre, int distancia, ArrayList<String> nacionalidadesAceptadas) {
+	
+	
+	public Destino(String nombre, String pais, int distancia) {
 		this.nombre = nombre;
+		this.pais = pais;
 		this.distancia = distancia;
-		this.nacionalidadesAceptadas = nacionalidadesAceptadas;
+	}
+	
+	public static void setDestinoSinVisado(String nacionalidad) {
+		paisSinVisa.add(nacionalidad);
 	}
 	public String getNombre() {
 		return nombre;
@@ -25,12 +32,7 @@ public class Destino {
 	public void setDistancia(int distancia) {
 		this.distancia = distancia;
 	}
-	public ArrayList<String> getNacionalidades() {
-		return nacionalidadesAceptadas;
-	}
-	public void setNacionalidades(ArrayList<String> nacionalidades) {
-		this.nacionalidadesAceptadas = nacionalidades;
-	}
+	
 	public ArrayList<Hotel> getHoteles() {
 		return hoteles;
 	}

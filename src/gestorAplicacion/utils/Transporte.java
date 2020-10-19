@@ -5,11 +5,22 @@ public class Transporte {
 	int velocidad;
 	int costoKM;
 	
-	public Transporte(String tipo, int velocidad, int costoKM) {
+	public Transporte(String tipo) {
 		this.tipo = tipo;
-		this.velocidad = velocidad;
-		this.costoKM = costoKM;
+		if(tipo.equals("terrestre")) {
+			this.velocidad = 80;
+			this.costoKM = 4;
+		}
+		else if(tipo.equals("aereo")) {
+			this.velocidad = 300;
+			this.costoKM = 7;
+		}
+		else if(tipo.equals("maritimo")) {
+			this.velocidad = 50;
+			this.costoKM = 5;
+		}
 	}
+	
 	public String getTipo() {
 		return tipo;
 	}

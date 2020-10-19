@@ -7,21 +7,23 @@ import java.util.Map.Entry;
 public class Agente extends Persona{
 	
 	private String empresa;
-	private int comision;
-	private String contrasena;
+	private double pComision;
+	private double comision;	
 	public ArrayList<Viajero> listaClientes = new ArrayList<>();
-	static ArrayList<Agente> listaAgentes = new ArrayList<>();
+	public static ArrayList<Agente> listaAgentes = new ArrayList<>();
 	public static Scanner intro = new Scanner(System.in);
 	private int numeroClientes;
 	
 	//CONSTRUCTOR
-	public Agente(int cedula, String nombre, String nacionalidad, String empresa, int comision, String contrasena) {
+	public Agente(int cedula, String nombre, String nacionalidad, String empresa, double pComision) {
 		super(cedula, nombre, nacionalidad);
 		this.empresa = empresa;
-		this.comision = comision;
+		this.pComision = pComision;
+		this.comision = 0;
 		listaAgentes.add(this);
 	}
 	
+
 	public void cambiarNombre(Persona persona,String nuevoNombre) {
 		
 	}
@@ -53,13 +55,9 @@ public class Agente extends Persona{
 		
 		Collections.sort(list, (o1, o2) -> o1.getValue().compareTo(o2.getValue()));
 		
-		return list;
-		
-		
-		
-		
-		
+		return list;		
 	}
+
 	
 	// GETTERS AND SETTERS
 	
@@ -71,11 +69,11 @@ public class Agente extends Persona{
 		this.empresa = empresa;
 	}
         
-	public int getComision() {
+	public double getComision() {
 		return comision;
 	}
         
-	public void setComision(int comision) {
+	public void setComision(double comision) {
 		this.comision = comision;
 	}
 
@@ -95,6 +93,13 @@ public class Agente extends Persona{
 		return numeroClientes;
 	}
         
+	public double getpComision() {
+		return pComision;
+	}
+
+	public void setpComision(double pComision) {
+		this.pComision = pComision;
+	}
 	
 		
 }

@@ -15,14 +15,15 @@ public class Tiquete {
 	
 
 	
-	public Tiquete(Viajero viajero, Agente agente, Transporte transporte, int tiempoViaje, Destino destino,
-			double precio) {
+	public Tiquete(Viajero viajero, Agente agente, Transporte transporte, Destino destino) {
 		this.viajero = viajero;
 		this.agente = agente;
 		this.transporte = transporte;
-		this.tiempoViaje = tiempoViaje;
+		this.tiempoViaje = destino.getDistancia()/transporte.getVelocidad();
 		this.destino = destino;
-		this.precio = precio;
+		this.precio = transporte.getCostoKM()*destino.getDistancia();
+		
+		agente.setComision((double)(agente.getComision() + precio*agente.getpComision()));
 	}
 
 	public Viajero getViajero() {
