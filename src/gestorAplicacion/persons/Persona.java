@@ -1,7 +1,8 @@
 package gestorAplicacion.persons;
 import java.util.*;
+import java.io.Serializable;
 
-public abstract class Persona {
+public abstract class Persona implements Serializable{
 	
 	private int cedula;
 	private String nombre;

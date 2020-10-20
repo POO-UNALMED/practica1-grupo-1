@@ -4,7 +4,7 @@ import gestorAplicacion.persons.Viajero;
 import java.util.*;
 import java.util.Map.Entry;
 
-public class Agente extends Persona{
+public class Agente extends Persona {
 	
 	private String empresa;
 	private int comision;
@@ -79,8 +79,6 @@ public class Agente extends Persona{
 		this.comision = comision;
 	}
 
-	
-	
 	
 	public static ArrayList<Agente> getListaAgentes() {
 		return listaAgentes;
