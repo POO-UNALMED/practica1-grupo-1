@@ -1,52 +1,51 @@
 package gestorAplicacion.persons;
+
 import java.util.*;
 
 public abstract class Persona {
-	
-	private int cedula;
-	private String nombre;
-	private String nacionalidad;
-	
-	
-	public Persona(int cedula, String nombre, String nacionalidad) { 
-		this.cedula = cedula;
-		this.nombre = nombre;
-		this.nacionalidad = nacionalidad;
-	}
 
-	public Persona() {
-		
-	}
-	
-	// METODOS
-	public abstract void cambiarNombre(Persona persona,String nuevoNombre);
-		
-	public abstract void cambiarNacionalidad(Persona persona, String nacionalidad);
-	
-	
-	// GETTERS AND SETTERS
-	public int getCedula() {
-		return cedula;
-	}
+    private int cedula;
+    private String nombre;
+    private String nacionalidad;
 
-	public void setCedula(int cedula) {
-		this.cedula = cedula;
-	}
+    public Persona(int cedula, String nombre, String nacionalidad) {
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.nacionalidad = nacionalidad;
+    }
 
-	public String getNombre() {
-		return nombre;
-	}
+    public Persona() {
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    }
 
-	public String getNacionalidad() {
-		return nacionalidad;
-	}
+    // METODOS ABSTRACT
+    public abstract boolean verificarCedula(int cedula);
 
-	public void setNacionalidad(String nacionalidad) {
-		this.nacionalidad = nacionalidad;
-	}
-	
+    public abstract Persona devolverPorCedula(int cedula);
+
+    // GETTERS AND SETTERS
+    public int getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(int cedula) {
+        this.cedula = cedula;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNacionalidad() {
+        return nacionalidad;
+    }
+
+    public void setNacionalidad(String nacionalidad) {
+        this.nacionalidad = nacionalidad;
+    }
+
 }

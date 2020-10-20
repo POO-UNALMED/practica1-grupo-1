@@ -1,76 +1,73 @@
 package gestorAplicacion.utils;
+
 import gestorAplicacion.utils.Destino;
 import gestorAplicacion.persons.Viajero;
 import gestorAplicacion.persons.Viajero;
 import java.util.*;
+
 public class Hotel {
-	String nombre;
-	int costo;
-	Destino destino;
-	int capacidad;
-	ArrayList<Viajero> visitantes = new ArrayList<>();
-	static ArrayList<Hotel> hoteles = new ArrayList<>();
-	
-	public Hotel(String nombre, int costo, Destino destino, int capacidad) {
-		this.nombre = nombre;
-		this.costo = costo;
-		this.destino = destino;
-		this.capacidad = capacidad;
-		hoteles.add(this);
-		destino.hoteles.add(this);
-		}
 
-	public String getNombre() {
-		return nombre;
-	}
+    private String nombre;
+    private int costo;
+    private Destino destino;
+    private int estrellas;
+    private ArrayList<Viajero> visitantes = new ArrayList<>();
+    public static ArrayList<Hotel> hoteles = new ArrayList<>();
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public Hotel(String nombre, int costo, Destino destino, int estrellas) {
+        this.nombre = nombre;
+        this.costo = costo;
+        this.destino = destino;
+        this.estrellas = estrellas;
+        hoteles.add(this);
+    }
 
-	public int getCosto() {
-		return costo;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public void setCosto(int costo) {
-		this.costo = costo;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public Destino getDestino() {
-		return destino;
-	}
+    public int getCosto() {
+        return costo;
+    }
 
-	public void setDestino(Destino destino) {
-		this.destino = destino;
-	}
+    public void setCosto(int costo) {
+        this.costo = costo;
+    }
 
-	public int getCapacidad() {
-		return capacidad;
-	}
+    public Destino getDestino() {
+        return destino;
+    }
 
-	public void setCapacidad(int capacidad) {
-		this.capacidad = capacidad;
-	}
+    public void setDestino(Destino destino) {
+        this.destino = destino;
+    }
 
-	public ArrayList<Viajero> getVisitantes() {
-		return visitantes;
-	}
+    public int getEstrellas() {
+        return estrellas;
+    }
 
-	public void setVisitantes(ArrayList<Viajero> visitantes) {
-		this.visitantes = visitantes;
-	}
+    public void setEstrellas(int estrellas) {
+        this.estrellas = estrellas;
+    }
 
-	public ArrayList<Hotel> getHoteles() {
-		return hoteles;
-	}
+    public ArrayList<Viajero> getVisitantes() {
+        return visitantes;
+    }
 
-	public void setHoteles(ArrayList<Hotel> hoteles) {
-		this.hoteles = hoteles;
-	}
-	
-	
-	
-	
-	
+    public void setVisitantes(ArrayList<Viajero> visitantes) {
+        this.visitantes = visitantes;
+    }
+
+    public ArrayList<Hotel> getHoteles() {
+        return hoteles;
+    }
+
+    public void setHoteles(ArrayList<Hotel> hoteles) {
+        this.hoteles = hoteles;
+    }
 
 }

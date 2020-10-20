@@ -7,10 +7,10 @@ import java.util.*;
 public class Viajero extends Persona {
 
     private int presupuesto;
-    private Persona agente;
+    private Agente agente;
     private int millas;
+    private boolean visado;
     public static ArrayList<Viajero> listaViajeros = new ArrayList<>();
-    public static Scanner intro = new Scanner(System.in);
 
     // CONSTRUCTORES
     public Viajero() {
@@ -26,13 +26,33 @@ public class Viajero extends Persona {
         agente.setNumeroClientes();
     }
 
-    //M�TODOS
-    public void cambiarNombre(Persona persona, String nuevoNombre) {
-
+    //METODOS HEREDADOS ABSTRACT
+    @Override
+    public boolean verificarCedula(int cedula) {
+        int contador = 0;
+        for (Viajero v : listaViajeros) {
+            if (v.getCedula() == cedula) {
+                continue;
+            } else {
+                contador++;
+            }
+        }
+        if (contador == listaViajeros.size()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
-    public void cambiarNacionalidad(Persona persona, String nacionalidad) {
-
+    @Override
+    public Persona devolverPorCedula(int cedula) {
+        Viajero viajeroActual = null;
+        for (Viajero v : listaViajeros) {
+            if (v.getCedula() == cedula) {
+                viajeroActual = v;
+            }
+        }
+        return viajeroActual;
     }
 
     public static ArrayList<Viajero> listadoClientes() {
@@ -48,11 +68,11 @@ public class Viajero extends Persona {
         this.presupuesto = presupuesto;
     }
 
-    public Persona getAgente() {
+    public Agente getAgente() {
         return agente;
     }
 
-    public void setAgente(Persona agente) {
+    public void setAgente(Agente agente) {
         this.agente = agente;
     }
 
