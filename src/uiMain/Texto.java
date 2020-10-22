@@ -1,4 +1,5 @@
 package uiMain;
+import gestorAplicacion.utils.Tiquete;
 import java.util.*;
 
 public class Texto {
@@ -104,5 +105,17 @@ public class Texto {
 		System.out.println("     Su eleccion:");
 		System.out.println(" ");
 	}
+        
+        public static void imprimirViaje(Tiquete t){
+            System.out.println("//----------------------------");
+            System.out.println(" Viaje realizado por : " + t.getViajero().getNombre());
+            System.out.println(" Con destino a: " + t.getDestino().getNombre());
+            System.out.println(" A un precio de: " + t.getPrecio());
+            System.out.println(" ");
+        }
+        
+        public static void imprimirTiquete(Tiquete t){
+            
+        }
 	
 }

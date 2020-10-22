@@ -7,13 +7,13 @@ public abstract class Persona {
     private int cedula;
     private String nombre;
     private boolean visado;
-    public static ArrayList<Persona> listadoPersonas = new ArrayList<>();
+    public static ArrayList<Persona> listaPersonas = new ArrayList<>();
 
     public Persona(int cedula, String nombre, boolean visado) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.visado = visado;
-        listadoPersonas.add(this);
+        listaPersonas.add(this);
     }
 
     public Persona() {
@@ -27,10 +27,10 @@ public abstract class Persona {
     
     //MÉTODOS
     public static boolean verificarCedula(int cedulaEntrante){
-        boolean disponible = true;
-        for (Persona p : listadoPersonas){
+        boolean disponible = false;
+        for (Persona p : listaPersonas){
             if(p.getCedula() == cedulaEntrante){
-                disponible = false;
+                disponible = true;
             }
         }
         return disponible;
@@ -63,12 +63,12 @@ public abstract class Persona {
         this.visado = visado;
     }
 
-    public static ArrayList<Persona> getListadoPersonas() {
-        return listadoPersonas;
+    public static ArrayList<Persona> getListaPersonas() {
+        return listaPersonas;
     }
 
-    public static void setListadoPersonas(ArrayList<Persona> listadoPersonas) {
-        Persona.listadoPersonas = listadoPersonas;
+    public static void setListaPersonas(ArrayList<Persona> listaPersonas) {
+        Persona.listaPersonas = listaPersonas;
     }
    
     

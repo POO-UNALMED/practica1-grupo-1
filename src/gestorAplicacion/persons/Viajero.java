@@ -34,21 +34,15 @@ public class Viajero extends Persona {
     }
     
     //MÉTODOS NORMALES
-
-    public static boolean verificarCedula(int cedula) {
-        int contador = 0;
-        boolean respuesta = false;
-        for (Viajero v : listaViajeros) {
-            if (v.getCedula() != cedula) {
-                contador++;
+    
+    public static boolean verificarCedula(int cedulaEntrante){
+        boolean existe = false;
+        for (Viajero v : listaViajeros){
+            if(v.getCedula() == cedulaEntrante){
+                existe = true;
             }
         }
-        if (contador == listaViajeros.size()) {
-            respuesta = false;
-        } else {
-            respuesta = true;
-        }
-        return respuesta;
+        return existe;
     }
 
     
@@ -95,5 +89,15 @@ public class Viajero extends Persona {
     public static void setListaViajeros(ArrayList<Viajero> listaViajeros) {
         Viajero.listaViajeros = listaViajeros;
     }
+
+    public ArrayList<Tiquete> getViajesRealizados() {
+        return viajesRealizados;
+    }
+
+    public void setViajesRealizados(ArrayList<Tiquete> viajesRealizados) {
+        this.viajesRealizados = viajesRealizados;
+    }
+    
+    
     
 }

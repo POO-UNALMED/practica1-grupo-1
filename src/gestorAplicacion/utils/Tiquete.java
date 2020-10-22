@@ -24,6 +24,7 @@ public class Tiquete {
         this.destino = destino;
         this.precio = transporte.getCostoKM() * destino.getDistancia();
         viajero.setMillas(destino.getDistancia()/10);
+        viajero.getViajesRealizados().add(this);
         agente.setComision((double) (agente.getComision() + precio * agente.getpComision()));
     }
 
