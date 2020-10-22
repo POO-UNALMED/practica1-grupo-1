@@ -7,26 +7,30 @@ import java.util.Map.Entry;
 
 public class Agente extends Persona {
 
-    private String empresa;
     private double pComision;
     private double comision;
-    public ArrayList<Viajero> listaClientes = new ArrayList<>();
-    public static ArrayList<Agente> listaAgentes = new ArrayList<>();
-    public static Scanner intro = new Scanner(System.in);
-    private int numeroClientes;
+    private ArrayList<Viajero> listaClientes = new ArrayList<>();
+    private static ArrayList<Agente> listaAgentes = new ArrayList<>();
 
     //CONSTRUCTOR
-    public Agente(int cedula, String nombre, String nacionalidad, String empresa, double pComision) {
-        super(cedula, nombre, nacionalidad);
-        this.empresa = empresa;
+    public Agente(int cedula, String nombre, boolean visado, double pComision) {
+        super(cedula, nombre, visado);
         this.pComision = pComision;
         this.comision = 0;
         listaAgentes.add(this);
     }
 
-    //METODOS HEREDADOS ABSTRACT
-    @Override
-    public boolean verificarCedula(int cedula) {
+    //METODOS HEREDADOS ABSTRACT 
+    public void obtenerVisado(){
+        this.setVisado(true);
+    }
+    
+    //MÉTODOS
+    public void atenderCliente(Viajero viajero){
+        this.listaClientes.add(viajero);
+    }
+
+    public static boolean verificarCedula(int cedula) {
         int contador = 0;
         for (Agente a : listaAgentes) {
             if (a.getCedula() == cedula) {
@@ -42,8 +46,7 @@ public class Agente extends Persona {
         }
     }
 
-    @Override
-    public Persona devolverPorCedula(int cedula) {
+    public static Persona devolverPorCedula(int cedula) {
         Agente agenteActual = null;
         for (Agente a : listaAgentes) {
             if (a.getCedula() == cedula) {
@@ -54,9 +57,14 @@ public class Agente extends Persona {
     }
 
     public static Agente agenteAleatorio() {
-        int numeroAleatorio = (int) (Math.random() * Agente.listaAgentes.size() + 1);
-        Agente agenteAsignado = Agente.listaAgentes.get(numeroAleatorio);
+        Agente agenteAsignado = Agente.getListaAgentes().get(0);
+        int numeroAleatorio = (int) Math.floor(Math.random()*Agente.numeroAgentes());
+        agenteAsignado = Agente.getListaAgentes().get(numeroAleatorio);
         return agenteAsignado;
+    }
+    
+    public static int numeroAgentes(){
+        return Agente.getListaAgentes().size();
     }
 
     public static List<Entry<String, Integer>> mejoresAgentes() {
@@ -64,7 +72,7 @@ public class Agente extends Persona {
 
         for (Agente agente : listaAgentes) {
 
-            agentes.put(agente.getNombre(), agente.getNumeroClientes());
+            agentes.put(agente.getNombre(), agente.getListaClientes().size());
         }
 
         Set<Entry<String, Integer>> entrySet = agentes.entrySet();
@@ -77,12 +85,13 @@ public class Agente extends Persona {
     }
 
     // GETTERS AND SETTERS
-    public String getEmpresa() {
-        return empresa;
+
+    public double getpComision() {
+        return pComision;
     }
 
-    public void setEmpresa(String empresa) {
-        this.empresa = empresa;
+    public void setpComision(double pComision) {
+        this.pComision = pComision;
     }
 
     public double getComision() {
@@ -93,24 +102,21 @@ public class Agente extends Persona {
         this.comision = comision;
     }
 
+    public ArrayList<Viajero> getListaClientes() {
+        return listaClientes;
+    }
+
+    public void setListaClientes(ArrayList<Viajero> listaClientes) {
+        this.listaClientes = listaClientes;
+    }
+
     public static ArrayList<Agente> getListaAgentes() {
         return listaAgentes;
     }
 
-    public void setNumeroClientes() {
-        this.numeroClientes += 1;
+    public static void setListaAgentes(ArrayList<Agente> listaAgentes) {
+        Agente.listaAgentes = listaAgentes;
     }
-
-    public int getNumeroClientes() {
-        return numeroClientes;
-    }
-
-    public double getpComision() {
-        return pComision;
-    }
-
-    public void setpComision(double pComision) {
-        this.pComision = pComision;
-    }
+    
 
 }

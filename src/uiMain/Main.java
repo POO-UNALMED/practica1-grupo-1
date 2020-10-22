@@ -1,6 +1,7 @@
 package uiMain;
 
 import gestorAplicacion.persons.Agente;
+import gestorAplicacion.persons.Persona;
 import gestorAplicacion.utils.Destino;
 import gestorAplicacion.utils.Hotel;
 import gestorAplicacion.utils.Tiquete;
@@ -9,7 +10,6 @@ import gestorAplicacion.persons.Viajero;
 import java.util.Map.Entry;
 import java.util.*;
 import java.lang.Math;
-
 import uiMain.Texto;
 
 public class Main {
@@ -23,29 +23,21 @@ public class Main {
         int eleccion2 = 0;
 
         //INSTANCIAS
-        Agente agenteSupremo = new Agente(10, "SAM", "Colombia", "alma", 0);
-        Agente agente1 = new Agente(1087904564, "Carlos Bustamente", "Colombia", "Viaja facil", 0.15);
-        Agente agente2 = new Agente(1094520234, "Juan Ramirez", "Colombia", "Despegar", 0.1);
-        Agente agente3 = new Agente(1087904564, "Lucas Bastidas", "Colombia", "Despegar", 0.15);
+        Agente agenteSupremo = new Agente(10, "SAM", true, 0);
+        Agente agente1 = new Agente(11, "Bustamante", true, 0.15);
+        Agente agente2 = new Agente(12, "Ramirez", false, 0.1);
+        Agente agente3 = new Agente(13, "Bastidas", false, 0.15);
+        Agente agente4 = new Agente(14, "Reinoso", true, 0.181);
 
-        Viajero viajero1 = new Viajero(1, "Carlos", "Colombia", 1000, agente2);
-        Viajero viajero2 = new Viajero(2, "Marcela", "Colombia", 2000, agente2);
-        Viajero viajero3 = new Viajero(3, "Luisa", "Alemania", 0, agente1);
-        Viajero viajero4 = new Viajero(3, "Andrea", "Alemania", 0, agente1);
-        Viajero viajero5 = new Viajero(3, "Estefania", "Rusia", 0, agente1);
-        Viajero viajero6 = new Viajero(3, "Diana", "Inglaterra", 0, agente3);
+        Viajero viajero1 = new Viajero(1, "Carlos", true , 10000);
+        Viajero viajero2 = new Viajero(2, "Marcela", false, 20000);
+        Viajero viajero3 = new Viajero(3, "Luisa", true, 10000);
+        Viajero viajero4 = new Viajero(4, "Andrea", true, 0);
+        Viajero viajero5 = new Viajero(5, "Estefania", false, 0);
+        Viajero viajero6 = new Viajero(6, "Diana", true, 0);
 
-        Destino.setDestinoSinVisado("Albania");
-        Destino.setDestinoSinVisado("Alemania");
-        Destino.setDestinoSinVisado("Andorra");
-        Destino.setDestinoSinVisado("Austria");
-        Destino.setDestinoSinVisado("Belgica");
-        Destino.setDestinoSinVisado("Bosnia");
-        Destino.setDestinoSinVisado("Croacia");
-        Destino.setDestinoSinVisado("Dinamarca");
-        Destino.setDestinoSinVisado("Espana");
-
-        Destino destino1 = new Destino("San Andres", "Colombia", 973);
+        Destino destino1 = new Destino("SanAndres", "Colombia", 973);
+        
 
         Hotel hotel1 = new Hotel("Hotelucho", 190, destino1, 100);
 
@@ -74,6 +66,8 @@ public class Main {
                 case 0:
                     System.out.println(" ");
                     System.out.println("Vuelva pronto.");
+                    System.out.println("Estaremos a su servicios");
+                    System.out.println("//-------------------------------------//");
                     sesion = false;
                     break;
             }
@@ -94,13 +88,13 @@ public class Main {
                     imprimirClientes();
                     break;
                 case 2:
-                    mejorViajero();
+                    inscribirViajero();
                     break;
                 case 3:
                     clientesMasPresupuesto();
                     break;
                 case 4:
-                    cambiarNacionalidad();
+                    System.out.println("Holi");
                     break;
                 case 0:
                     sesion = false;
@@ -212,7 +206,7 @@ public class Main {
             System.out.println("//----------------------------------------//");
             System.out.println("    ID: " + viajero.getCedula());
             System.out.println("    Nombre: " + viajero.getNombre());
-            System.out.println("    País de origen: " + viajero.getNacionalidad());
+            System.out.println("    Visado vigente: " + viajero.isVisado());
             System.out.println("    Millas Acumuladas: " + viajero.getMillas());
             System.out.println("    Presupuesto: " + viajero.getPresupuesto());
             System.out.println("    Agente encargado: ID :" + viajero.getAgente().getCedula() + " Nombre: "
@@ -221,7 +215,49 @@ public class Main {
         }
         System.out.println("//----------// FIN DE LISTADO DE CLIENTES DE SAM TRAVEL //----------//");
     }
-
+    
+    public static void inscribirViajero(){
+        boolean a = true;
+        int cedula;
+        boolean visado = false;
+        System.out.println(" ");
+        System.out.println("//---------- INSCRIPCIÓN DE VIAJERO ----------//");
+        System.out.println(" ");
+        while(a){
+            System.out.println(" ");
+            System.out.println("//-----> Por favor ingrese el documento del nuevo viajero: ");
+            cedula = intro.nextInt();
+            if(Persona.verificarCedula(cedula)){
+                
+                System.out.println(" ");
+                System.out.println("//-----> Inserte nombre del viajero:");
+                String nombre = intro.next();
+                System.out.println(" ");
+                System.out.println("¿El viajero tiene visado? ");
+                System.out.println("        1. Tiene visado.");
+                System.out.println("        2. No tiene visado.");
+                System.out.println("//-----> Elección a continuación:");
+                
+                int eleccionVisado = intro.nextInt();
+                if (eleccionVisado == 1){
+                    visado = true;
+                }
+                else{
+                    visado = false;
+                }
+                
+                a = false;
+                Viajero nuevoViajero = new Viajero(cedula,nombre,visado,0);
+                
+                System.out.println("El viajero " + nuevoViajero.getNombre() + " ha sido creado satisfactoriamente.");
+            }
+            else{
+                System.out.println(" ");
+                System.out.println("El número de cédula ingresado ya existe, por favor intentelo nuevamente.");
+            }
+        }
+    }
+    
     public static void mejorViajero() {
         ArrayList<Viajero> listaViajero = Viajero.getListaViajeros();
         int masMillas = -1;
@@ -270,49 +306,19 @@ public class Main {
         System.out.println(" ");
     }
 
-    public static void cambiarNacionalidad() {
-        ArrayList<Viajero> listaViajero = Viajero.getListaViajeros();
-        Viajero aux = null;
-        System.out.println("//----------------------------------------//");
-        System.out.println("Por favor inserte el documento de la persona que desea cambiar su nacionalidad: ");
-        int doc = intro.nextInt();
-        for (int i = 0; i < listaViajero.size(); i++) {
-            Viajero viajero = listaViajero.get(i);
-            if (viajero.getCedula() == doc) {
-                aux = viajero;
-            }
-        }
-        if (aux == null) {
-            System.out.println("La cédula insertada no se encuentra inscrita en nuestro sistema.");
-            System.out.println(" ");
-            System.out.println("Por favor vuelvalo a intentar.");
-            System.out.println(" ");
-        } else {
-            System.out.println(" Inserte su nuevo país de origen:");
-            String nuevaNacionalidad = intro.next();
-            aux.setNacionalidad(nuevaNacionalidad);
-            System.out.println(" ");
-            System.out.println(" Proceso completado exitosamente.");
-            System.out.println("");
-            System.out.println("//----------------------------------------//");
-            System.out.println("La nueva nacionalidad de " + aux.getNombre() + " con documento: " + aux.getCedula()
-                    + " es: " + aux.getNacionalidad());
-            System.out.println(" ");
-        }
 
-    }
 
     // MÉTODOS DE MENÚ DE AGENTE:
     public static void viajerosPorAgente() {
-        for (int i = 0; i < Agente.listaAgentes.size(); i++) {
-            Agente aux = Agente.listaAgentes.get(i);
-            if (aux.listaClientes.isEmpty()) {
+        for (int i = 0; i < Agente.numeroAgentes(); i++) {
+            Agente aux = Agente.getListaAgentes().get(i);
+            if (aux.getListaClientes().isEmpty()) {
                 continue;
             } else {
                 System.out.println(" El agente: " + aux.getNombre() + " Tienes los siguientes clientes: ");
                 System.out.println(" ");
-                for (int j = 0; j < aux.listaClientes.size(); j++) {
-                    Viajero v = aux.listaClientes.get(j);
+                for (int j = 0; j < aux.getListaClientes().size(); j++) {
+                    Viajero v = aux.getListaClientes().get(j);
                     System.out.println(v.getNombre());
                 }
                 System.out.println(" ");
@@ -343,12 +349,11 @@ public class Main {
             System.out.println(" ");
             System.out.println("//-----> Inserte el número de documento de la persona que va a viajar:");
             int cedulaViajero = intro.nextInt();
-            if (viajero.verificarCedula(cedulaViajero) == true) {
-                viajero = (Viajero) viajero.devolverPorCedula(cedulaViajero);
+            if (Viajero.verificarCedula(cedulaViajero)) {
+                viajero = Viajero.devolverPorCedula(cedulaViajero);
                 agenteAsignado = viajero.getAgente();
                 System.out.println("Usuario: " + viajero.getNombre() + " encontrado y listo para viajar.");
                 v = false;
-                break;
             } else {
                 System.out.println("No se encontró un usuario con el número de cedula ingreso, por favor intentelo nuevamente.");
                 System.out.println(" ");
@@ -397,21 +402,70 @@ public class Main {
         System.out.println("  Su eleccion:");
 
         int eleccionTransporte = intro.nextInt();
-        Transporte transporteActual = null;
+        Transporte transporte = null;
         switch (eleccionTransporte) {
             case 1:
-                transporteActual = new Transporte("Latam", "aereo");
+                transporte = new Transporte("Latam", "aereo");
             case 2:
-                transporteActual = new Transporte("Coomotor", "terrestre");
+                transporte = new Transporte("Coomotor", "terrestre");
             case 3:
-                transporteActual = new Transporte("Maribell", "maritimo");
+                transporte = new Transporte("Maribell", "maritimo");
         }
 
-        Destino destino1 = new Destino("San Andres", "Colombia", 973);
-        Tiquete tiquete1 = new Tiquete(viajero, agenteAsignado, transporteActual, destino1);
-
-        System.out.println(tiquete1.getPrecio());
-        System.out.println(tiquete1.getViajero().getNombre());
-        System.out.println(tiquete1.getTiempoViaje());
+        
+        Tiquete miTiquete = new Tiquete(viajero, agenteAsignado, transporte, destino);
+        
+        System.out.println("//-----------------------------------------------------------//");
+        System.out.println("//--------COMPROBANTE DE TIQUETE DE VIAJE SAM-TRAVEL---------//");
+        System.out.println("//                                                           //");
+        System.out.println("// Documento: " + viajero.getCedula());
+        System.out.println("// A nombre de: " + viajero.getNombre());
+        System.out.println("// Con destino a : " + destino.getCiudad() + ", " + destino.getPais());
+        System.out.println("// Transporte a cargo de: " + transporte.getNombre() + "(" + transporte.getTipo()+")");
+        System.out.println("// Tiempo de Viaje: " + miTiquete.getTiempoViaje() + " horas");
+        System.out.println("// Agente encargado: ID " + agenteAsignado.getCedula() + " Nombre: " +  agenteAsignado.getNombre());
+        System.out.println(" ");
+        System.out.println("// PRECIO TOTAL: " + miTiquete.getPrecio());
+        System.out.println("//-----------------------------------------------------------//");
+        System.out.println("//-----------------------------------------------------------//");
+        System.out.println(viajero.getMillas());
+        
     }
+    
 }
+
+
+// Código basura
+/*
+    public static void cambiarNacionalidad() {
+        ArrayList<Viajero> listaViajero = Viajero.getListaViajeros();
+        Viajero aux = null;
+        System.out.println("//----------------------------------------//");
+        System.out.println("Por favor inserte el documento de la persona que desea cambiar su nacionalidad: ");
+        int doc = intro.nextInt();
+        for (int i = 0; i < listaViajero.size(); i++) {
+            Viajero viajero = listaViajero.get(i);
+            if (viajero.getCedula() == doc) {
+                aux = viajero;
+            }
+        }
+        if (aux == null) {
+            System.out.println("La cédula insertada no se encuentra inscrita en nuestro sistema.");
+            System.out.println(" ");
+            System.out.println("Por favor vuelvalo a intentar.");
+            System.out.println(" ");
+        } else {
+            System.out.println(" Inserte su nuevo país de origen:");
+            String nuevaNacionalidad = intro.next();
+            aux.setNacionalidad(nuevaNacionalidad);
+            System.out.println(" ");
+            System.out.println(" Proceso completado exitosamente.");
+            System.out.println("");
+            System.out.println("//----------------------------------------//");
+            System.out.println("La nueva nacionalidad de " + aux.getNombre() + " con documento: " + aux.getCedula()
+                    + " es: " + aux.getNacionalidad());
+            System.out.println(" ");
+        }
+
+    }
+*/

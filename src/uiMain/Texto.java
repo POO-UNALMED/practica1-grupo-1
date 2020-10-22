@@ -46,9 +46,9 @@ public class Texto {
 		System.out.println("     A continuacion las opciones del Menu:");
 		System.out.println(" ");
 		System.out.println("          1. Ver listado de Viajeros inscritos."); 
-		System.out.println("          2. Mejor Viajero."); 
-		System.out.println("          3. Clientes con mas presupuesto");
-		System.out.println("          4. Agregar nacionalidad a Viajero.");
+		System.out.println("          2. Inscribir a un viajero."); 
+		System.out.println("          3. Otorgar visado a cliente.");
+		System.out.println("          4. Ver viajes realizados para un cliente.");
 		System.out.println(" ");
 		System.out.println("             0. Volver al Menu anterior.");
 		System.out.println(" ");

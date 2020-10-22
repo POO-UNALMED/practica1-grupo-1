@@ -1,5 +1,6 @@
 package gestorAplicacion.persons;
 
+import gestorAplicacion.utils.Tiquete;
 import uiMain.Texto;
 
 import java.util.*;
@@ -9,43 +10,49 @@ public class Viajero extends Persona {
     private int presupuesto;
     private Agente agente;
     private int millas;
-    private boolean visado;
-    public static ArrayList<Viajero> listaViajeros = new ArrayList<>();
+    private static ArrayList<Viajero> listaViajeros = new ArrayList<>();
+    private ArrayList<Tiquete> viajesRealizados = new ArrayList<>();
 
     // CONSTRUCTORES
     public Viajero() {
 
     }
 
-    public Viajero(int cedula, String nombre, String nacionalidad, int presupuesto, Agente agente) {
-        super(cedula, nombre, nacionalidad);
+    public Viajero(int cedula, String nombre, boolean visado, int presupuesto) {
+        super(cedula, nombre, visado);
         this.presupuesto = presupuesto;
-        this.agente = agente;
-        agente.listaClientes.add(this);
+        this.agente = Agente.agenteAleatorio();
+        this.millas = 0;   
         listaViajeros.add(this);
-        agente.setNumeroClientes();
+        agente.atenderCliente(this);
     }
 
     //METODOS HEREDADOS ABSTRACT
-    @Override
-    public boolean verificarCedula(int cedula) {
+    
+    public void obtenerVisado(){
+        this.setVisado(true);
+    }
+    
+    //MÉTODOS NORMALES
+
+    public static boolean verificarCedula(int cedula) {
         int contador = 0;
+        boolean respuesta = false;
         for (Viajero v : listaViajeros) {
-            if (v.getCedula() == cedula) {
-                continue;
-            } else {
+            if (v.getCedula() != cedula) {
                 contador++;
             }
         }
         if (contador == listaViajeros.size()) {
-            return false;
+            respuesta = false;
         } else {
-            return true;
+            respuesta = true;
         }
+        return respuesta;
     }
 
-    @Override
-    public Persona devolverPorCedula(int cedula) {
+    
+    public static Viajero devolverPorCedula(int cedula) {
         Viajero viajeroActual = null;
         for (Viajero v : listaViajeros) {
             if (v.getCedula() == cedula) {
@@ -55,11 +62,8 @@ public class Viajero extends Persona {
         return viajeroActual;
     }
 
-    public static ArrayList<Viajero> listadoClientes() {
-        return listaViajeros;
-    }
-
     // GETTERS AND SETTERS
+
     public int getPresupuesto() {
         return presupuesto;
     }
@@ -91,5 +95,5 @@ public class Viajero extends Persona {
     public static void setListaViajeros(ArrayList<Viajero> listaViajeros) {
         Viajero.listaViajeros = listaViajeros;
     }
-
+    
 }

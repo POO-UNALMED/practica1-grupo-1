@@ -7,19 +7,16 @@ public class Destino {
     private String ciudad;
     private String pais;
     private int distancia;
+    private boolean solicitaVisa;
+    private int visitantes;
     private ArrayList<Hotel> hoteles = new ArrayList<>();
     public static ArrayList<Destino> destinos = new ArrayList<>();
-    public static ArrayList<String> paisNoNecesitaVisa = new ArrayList<>();
 
     public Destino(String ciudad, String pais, int distancia) {
         this.ciudad = ciudad;
         this.pais = pais;
         this.distancia = distancia;
         destinos.add(this);
-    }
-
-    public static void setDestinoSinVisado(String nacionalidad) {
-        paisNoNecesitaVisa.add(nacionalidad);
     }
 
     public String getCiudad() {

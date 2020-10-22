@@ -4,6 +4,7 @@ import gestorAplicacion.persons.Agente;
 import gestorAplicacion.utils.Destino;
 import gestorAplicacion.persons.Viajero;
 import gestorAplicacion.persons.Viajero;
+import java.util.ArrayList;
 
 public class Tiquete {
 
@@ -13,6 +14,7 @@ public class Tiquete {
     int tiempoViaje;
     Destino destino;
     double precio;
+    ArrayList<Tiquete> viajesRealizados = new ArrayList<>();
 
     public Tiquete(Viajero viajero, Agente agente, Transporte transporte, Destino destino) {
         this.viajero = viajero;
@@ -21,7 +23,7 @@ public class Tiquete {
         this.tiempoViaje = destino.getDistancia() / transporte.getVelocidad();
         this.destino = destino;
         this.precio = transporte.getCostoKM() * destino.getDistancia();
-
+        viajero.setMillas(destino.getDistancia()/10);
         agente.setComision((double) (agente.getComision() + precio * agente.getpComision()));
     }
 
