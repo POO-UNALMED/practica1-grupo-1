@@ -1,5 +1,6 @@
 package gestorAplicacion.persons;
 
+import gestorAplicacion.utils.Destino;
 import gestorAplicacion.utils.Tiquete;
 import uiMain.Texto;
 
@@ -54,6 +55,32 @@ public class Viajero extends Persona {
             }
         }
         return viajeroActual;
+    }
+    
+    public void consignarDinero(int consignacion){
+        int presupuesto = this.presupuesto;
+        this.setPresupuesto(presupuesto + consignacion);
+    }
+    
+    public ArrayList<Destino> destinosPosibles(){
+        ArrayList<Destino> destinos = Destino.getListaDestinos();
+        ArrayList<Destino> destinosPosibles = new ArrayList<>();
+        double costoKMAereo = 1;
+        double costoKMTerrestre = 0.7;
+        double costoKMMaritimo = 0.8;
+        int costo;
+        for(Destino d : destinos){
+            if(d.isPideVisa()&&(this.isVisado())){
+                costo = d.getDistancia();
+                if(this.getPresupuesto()>=costo){
+                    destinosPosibles.add(d);
+                }
+            }
+            else{
+                
+            }
+        }
+        return destinosPosibles;
     }
 
     // GETTERS AND SETTERS

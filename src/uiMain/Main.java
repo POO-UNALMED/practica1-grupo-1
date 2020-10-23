@@ -100,6 +100,8 @@ public class Main {
                 case 4:
                     viajesPorCliente();
                     break;
+                case 5:
+                    consignarDinero();
                 case 0:
                     sesion = false;
                     break;
@@ -182,7 +184,7 @@ public class Main {
             eleccion = intro.nextInt();
             switch (eleccion) {
                 case 1:
-                    System.out.println("Cotizar un viaje.");
+                    cotizarViaje();
                     break;
                 case 2:
                     venderTiquete();
@@ -332,52 +334,32 @@ public class Main {
         }
     }
 
-    public static void mejorViajero() {
-        ArrayList<Viajero> listaViajero = Viajero.getListaViajeros();
-        int masMillas = -1;
-        Viajero aux = null;
-        for (int i = 0; i < listaViajero.size(); i++) {
-            Viajero viajero = listaViajero.get(i);
-
-            if (viajero.getMillas() > masMillas) {
-                masMillas = viajero.getMillas();
-                aux = viajero;
-            } else if (viajero.getMillas() == masMillas && viajero.getPresupuesto() > aux.getPresupuesto()) {
-                masMillas = viajero.getMillas();
-                aux = viajero;
-            }
-
-        }
-        System.out.println("//----------------------------------------//");
-        System.out.println("El Mejor Viajero es :" + aux.getNombre());
-        System.out.println("    Millas Acumuladas: " + aux.getMillas());
-        System.out.println("    Presupuesto: " + aux.getPresupuesto());
-        System.out.println("//----------------------------------------//");
+    public static void consignarDinero() {
+        boolean a = true;
+        int cedulaCliente;
+        int consignacion = 0;
+        Viajero viajeroConsigna;
         System.out.println(" ");
-    }
-
-    public static void clientesMasPresupuesto() {
-        ArrayList<Viajero> listaViajero = Viajero.getListaViajeros();
-        int masPresupuesto = -1;
-        Viajero aux = null;
-        for (int i = 0; i < listaViajero.size(); i++) {
-            Viajero viajero = listaViajero.get(i);
-
-            if (viajero.getPresupuesto() > masPresupuesto) {
-                masPresupuesto = viajero.getMillas();
-                aux = viajero;
-            } else if (viajero.getPresupuesto() == masPresupuesto && viajero.getMillas() > aux.getMillas()) {
-                masPresupuesto = viajero.getMillas();
-                aux = viajero;
-
+        System.out.println("//---------- CONSIGNACION DE DINERO PARA CLIENTES ----------//");
+        System.out.println(" ");
+        while (a) {
+            System.out.println(" ");
+            System.out.println("//-----> Por favor digite el documento del cliente que desea consignar dinero:");
+            cedulaCliente = intro.nextInt();
+            if (Viajero.verificarCedula(cedulaCliente)) {
+                viajeroConsigna = Viajero.devolverPorCedula(cedulaCliente);
+                System.out.println("//-----> ¿Cuanto dinero desea depositar?");
+                consignacion = intro.nextInt();
+                viajeroConsigna.consignarDinero(consignacion);
+                System.out.println(" ");
+                System.out.println("//--------------------------------------------------------------------------");
+                System.out.println("Se ha consignado " + consignacion + " pesos a la cuenta de el viajero " + viajeroConsigna.getNombre() + ".");
+                System.out.println("El nuevo presupuesto es de : " + viajeroConsigna.getPresupuesto());
+                System.out.println("Proceso realizado satisfactoriamente.");
+                System.out.println(" ");
+                a = false;
             }
         }
-        System.out.println("//----------------------------------------//");
-        System.out.println("El Mejor Viajero es :" + aux.getNombre());
-        System.out.println("    Millas Acumuladas: " + aux.getMillas());
-        System.out.println("    Presupuesto: " + aux.getPresupuesto());
-        System.out.println("//----------------------------------------//");
-        System.out.println(" ");
     }
 
     // MÉTODOS DE MENÚ DE AGENTE:
@@ -511,7 +493,7 @@ public class Main {
                 System.out.println(" ");
                 System.out.println("//-----> Por ultimo ¿Cuanto es el costo por noche?");
                 costoPorNoche = intro.nextInt();
-                Hotel hotel = new Hotel(nombreNuevoHotel,costoPorNoche,destinoDondeConstruir,estrellas);
+                Hotel hotel = new Hotel(nombreNuevoHotel, costoPorNoche, destinoDondeConstruir, estrellas);
                 System.out.println(" ");
                 System.out.println("Un nuevo hotel en " + destinoDondeConstruir.getNombre() + " ha sido creado satisfactoriamente.");
                 System.out.println("");
@@ -527,6 +509,29 @@ public class Main {
     }
 
     // MÉTODOS DE MENÚ DE VENTAS:
+    public static void cotizarViaje() {
+        boolean a = true;
+        Viajero viajero;
+        int cedula;
+        System.out.println(" ");
+        System.out.println("//---------- COTIZACION DE VIAJES ----------//");
+        System.out.println(" ");
+        while (a) {
+            System.out.println("//-----> Por favor digite la cedula del viajer@ que desea cotizar un viaje: ");
+            cedula = intro.nextInt();
+            if(Viajero.verificarCedula(cedula)){
+                viajero = Viajero.devolverPorCedula(cedula);
+                
+            }
+            else{
+                System.out.println(" ");
+                System.out.println("No hay ningún viajero con la cédula digitada.");
+            }
+            
+        }
+
+    }
+
     public static void venderTiquete() {
 
         // Variables que se usarán en el método.
@@ -665,5 +670,53 @@ public class Main {
             System.out.println(" ");
         }
 
+    }
+
+    public static void mejorViajero() {
+        ArrayList<Viajero> listaViajero = Viajero.getListaViajeros();
+        int masMillas = -1;
+        Viajero aux = null;
+        for (int i = 0; i < listaViajero.size(); i++) {
+            Viajero viajero = listaViajero.get(i);
+
+            if (viajero.getMillas() > masMillas) {
+                masMillas = viajero.getMillas();
+                aux = viajero;
+            } else if (viajero.getMillas() == masMillas && viajero.getPresupuesto() > aux.getPresupuesto()) {
+                masMillas = viajero.getMillas();
+                aux = viajero;
+            }
+
+        }
+        System.out.println("//----------------------------------------//");
+        System.out.println("El Mejor Viajero es :" + aux.getNombre());
+        System.out.println("    Millas Acumuladas: " + aux.getMillas());
+        System.out.println("    Presupuesto: " + aux.getPresupuesto());
+        System.out.println("//----------------------------------------//");
+        System.out.println(" ");
+    }
+
+    public static void clientesMasPresupuesto() {
+        ArrayList<Viajero> listaViajero = Viajero.getListaViajeros();
+        int masPresupuesto = -1;
+        Viajero aux = null;
+        for (int i = 0; i < listaViajero.size(); i++) {
+            Viajero viajero = listaViajero.get(i);
+
+            if (viajero.getPresupuesto() > masPresupuesto) {
+                masPresupuesto = viajero.getMillas();
+                aux = viajero;
+            } else if (viajero.getPresupuesto() == masPresupuesto && viajero.getMillas() > aux.getMillas()) {
+                masPresupuesto = viajero.getMillas();
+                aux = viajero;
+
+            }
+        }
+        System.out.println("//----------------------------------------//");
+        System.out.println("El Mejor Viajero es :" + aux.getNombre());
+        System.out.println("    Millas Acumuladas: " + aux.getMillas());
+        System.out.println("    Presupuesto: " + aux.getPresupuesto());
+        System.out.println("//----------------------------------------//");
+        System.out.println(" ");
     }
  */
