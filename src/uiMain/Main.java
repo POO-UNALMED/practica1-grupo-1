@@ -36,9 +36,13 @@ public class Main {
         Viajero viajero5 = new Viajero(5, "Estefania", false, 0);
         Viajero viajero6 = new Viajero(6, "Diana", true, 0);
 
-        Destino destino1 = new Destino("SanAndres", 973, true);
+        Destino destino1 = new Destino("SanAndres", 500, false);
+        Destino destino2 = new Destino("Cartagena", 300, false);
+        Destino destino3 = new Destino("BuenosAires", 1000, true);
+        Destino destino4 = new Destino("RioDeJaneiro", 800, true);
 
-        Hotel hotel1 = new Hotel("Hotelucho", 190, destino1, 100);
+        Hotel hotel1 = new Hotel("Hotelucho", 100, destino1, 2);
+        Hotel hotel2 = new Hotel("Chocolate", 60, destino1, 3);
 
         Transporte aereo = new Transporte("Aerotour", "aereo");
         Transporte maritimo = new Transporte("TransMawi", "maritimo");
@@ -74,6 +78,7 @@ public class Main {
         }
     }
 
+    // MENUS PARA SUPERUSUARIO 
     public static void menuViajero() {
 
         boolean sesion = true;
@@ -149,16 +154,16 @@ public class Main {
             eleccion = intro.nextInt();
             switch (eleccion) {
                 case 1:
-                    System.out.println("Ver listado de Destinos turisticos disponibles.");
+                    imprimirDestinos();
                     break;
                 case 2:
-                    System.out.println("Ver hoteles por Destino");
+                    verHotelesDestino();
                     break;
                 case 3:
-                    System.out.println("Ver tiempo de viaje para Destinos.");
+                    crearNuevoDestino();
                     break;
                 case 4:
-                    venderTiquete();
+                    crearHotel();
                     break;
                 case 0:
                     sesion = false;
@@ -311,8 +316,7 @@ public class Main {
                         Texto.imprimirViaje(t);
                     }
                     a = false;
-                }
-                else{
+                } else {
                     System.out.println(" ");
                     System.out.println("El viajer@ no ha realizado no ha realizado viajes todavía.");
                     a = false;
@@ -396,6 +400,132 @@ public class Main {
     }
 
     // MÉTODOS DE MENÚ DE TURISMO:
+    public static void imprimirDestinos() {
+        System.out.println(" ");
+        System.out.println("//---------- LISTADO DE DESTINOS TURÍSTICOS ----------//");
+        System.out.println(" ");
+        ArrayList<Destino> listaDestinos = Destino.getListaDestinos();
+        for (Destino d : listaDestinos) {
+            Texto.imprimirDestino(d);
+        }
+    }
+
+    public static void verHotelesDestino() {
+        Destino destino;
+        boolean a = true;
+        while (a) {
+            System.out.println("//-----> Por favor digite el nombre del destino que desea consultar: ");
+            String nombreDestino = intro.next();
+            if (Destino.existeDestino(nombreDestino)) {
+                destino = Destino.devolverDestino(nombreDestino);
+                if (!destino.getHoteles().isEmpty()) {
+                    System.out.println(" ");
+                    System.out.println("//---------- LISTADO DE HOTELES PARA " + destino.getNombre() + " ----------//");
+                    System.out.println(" ");
+                    for (Hotel h : destino.getHoteles()) {
+                        Texto.imprimirHoteles(h);
+                    }
+                    a = false;
+                } else {
+                    System.out.println(" ");
+                    System.out.println("No existen hoteles en este destino turístico.");
+                    a = false;
+                }
+
+            } else {
+                System.out.println(" ");
+                System.out.println("El destino escrito no existe, por favor intentelo de nuevo.");
+            }
+        }
+    }
+
+    public static void crearNuevoDestino() {
+        boolean a = true;
+        String nombreDestino = " ";
+        int distancia;
+        int respuestaVisado;
+        boolean visa;
+        System.out.println(" ");
+        System.out.println("//---------- CREACION DE NUEVO DESTINO TURISTICO ----------//");
+        System.out.println(" ");
+        while (a) {
+            System.out.println("//-----> Por favor digite el nombre del Destino turístico a crear:");
+            nombreDestino = intro.next();
+            if (!Destino.existeDestino(nombreDestino)) {
+                System.out.println(" ");
+                System.out.println("//-----> ¿A que distancia esta el Destino de Medellin?");
+                distancia = intro.nextInt();
+                System.out.println(" ");
+                System.out.println("¿El Destino exige visado para poder viajar? ");
+                System.out.println("        1. Exige.");
+                System.out.println("        2. No es necesario.");
+                System.out.println("//-----> Elección a continuación:");
+                respuestaVisado = intro.nextInt();
+                if (respuestaVisado == 1) {
+                    visa = true;
+                } else {
+                    visa = false;
+                }
+                Destino destino = new Destino(nombreDestino, distancia, visa);
+                System.out.println(" ");
+                System.out.println("Un nuevo destino turístico a sido creado satisfactoriamente.");
+                System.out.println(" ");
+                Texto.imprimirDestino(destino);
+                a = false;
+
+            } else {
+                System.out.println(" ");
+                System.out.println("El destino turístico escrito ya existe.");
+                System.out.println("Por favor intentelo de nuevo.");
+            }
+        }
+    }
+
+    public static void crearHotel() {
+        boolean a = true;
+        String nombreDestino = " ";
+        String nombreNuevoHotel = " ";
+        int estrellas;
+        int costoPorNoche;
+        Destino destinoDondeConstruir;
+        System.out.println(" ");
+        System.out.println("//---------- CREACION DE HOTEL ----------//");
+        System.out.println(" ");
+        while (a) {
+            System.out.println("//-----> Por favor digite el nombre del Destino turístico en el cual desea crear un hotel:");
+            nombreDestino = intro.next();
+            if (Destino.existeDestino(nombreDestino)) {
+                destinoDondeConstruir = Destino.devolverDestino(nombreDestino);
+                System.out.println(" ");
+                System.out.println("//-----> ¿Como se llamara el nuevo Hotel?");
+                nombreNuevoHotel = intro.next();
+                System.out.println(" ");
+                System.out.println("¿De que categoría es el hotel? ");
+                System.out.println("        1. 1 Estrella.");
+                System.out.println("        2. 2 Estrellas.");
+                System.out.println("        3. 3 Estrellas.");
+                System.out.println("        4. 4 Estrellas.");
+                System.out.println("        5. 5 Estrellas.");
+                System.out.println("//-----> Elección a continuación:");
+                estrellas = intro.nextInt();
+                System.out.println(" ");
+                System.out.println("//-----> Por ultimo ¿Cuanto es el costo por noche?");
+                costoPorNoche = intro.nextInt();
+                Hotel hotel = new Hotel(nombreNuevoHotel,costoPorNoche,destinoDondeConstruir,estrellas);
+                System.out.println(" ");
+                System.out.println("Un nuevo hotel en " + destinoDondeConstruir.getNombre() + " ha sido creado satisfactoriamente.");
+                System.out.println("");
+                Texto.imprimirHoteles(hotel);
+                a = false;
+
+            } else {
+                System.out.println(" ");
+                System.out.println("El destino turístico digitado no existe");
+                System.out.println("Por favor intentelo de nuevo.");
+            }
+        }
+    }
+
     // MÉTODOS DE MENÚ DE VENTAS:
     public static void venderTiquete() {
 
@@ -433,7 +563,7 @@ public class Main {
         System.out.println("");
         System.out.println("A continuación el listado de sitios turísticos disponibles para su viaje: ");
         System.out.println(" ");
-        for (Destino d : Destino.destinos) {
+        for (Destino d : Destino.getListaDestinos()) {
             System.out.println("//----------------------------------------//");
             System.out.println("   Destino Turístico : " + d.getNombre());
             System.out.println(" ");
@@ -441,7 +571,7 @@ public class Main {
 
         System.out.println("//-----> Escriba el nombre del Destino turístico a viajar.");
         ciudad = intro.next();
-        for (Destino d : Destino.destinos) {
+        for (Destino d : Destino.getListaDestinos()) {
             if (d.getNombre().equals(ciudad)) {
                 destino = d;
             }
@@ -473,10 +603,13 @@ public class Main {
         switch (eleccionTransporte) {
             case 1:
                 transporte = new Transporte("Latam", "aereo");
+                break;
             case 2:
                 transporte = new Transporte("Coomotor", "terrestre");
+                break;
             case 3:
                 transporte = new Transporte("Maribell", "maritimo");
+                break;
         }
 
         Tiquete miTiquete = new Tiquete(viajero, agenteAsignado, transporte, destino);

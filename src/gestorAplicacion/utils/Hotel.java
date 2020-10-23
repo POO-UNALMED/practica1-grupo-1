@@ -20,6 +20,7 @@ public class Hotel {
         this.destino = destino;
         this.estrellas = estrellas;
         hoteles.add(this);
+        destino.getHoteles().add(this);
     }
 
     public String getNombre() {
