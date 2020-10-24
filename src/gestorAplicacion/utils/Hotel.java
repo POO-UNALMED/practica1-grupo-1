@@ -18,7 +18,11 @@ public class Hotel {
 		this.capacidad = capacidad;
 		hoteles.add(this);
 		destino.hoteles.add(this);
-		}
+	}
+	
+	public Hotel() {
+		
+	}
 
 	public String getNombre() {
 		return nombre;

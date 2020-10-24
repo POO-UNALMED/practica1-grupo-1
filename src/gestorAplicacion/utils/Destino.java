@@ -1,6 +1,6 @@
 package gestorAplicacion.utils;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Destino {
 	String nombre;
@@ -15,6 +15,30 @@ public class Destino {
 		this.nombre = nombre;
 		this.pais = pais;
 		this.distancia = distancia;
+		Scanner entrada = new Scanner(System.in);
+		System.out.println("Cuantos hoteles deseas agregar para este destino turistico");
+		int nHoteles = entrada.nextInt();		
+		for (int i = 0; i < nHoteles; i++) {
+			hoteles.add(new Hotel());
+			System.out.println("Agrega la informacion del hotel " + i);
+			System.out.println("Agrega el nombre");			
+			String nombreH = entrada.next();
+			hoteles.get(i).setNombre(nombreH);
+			
+			System.out.println("Agrega el precio");	
+			int costoH = entrada.nextInt();			
+			hoteles.get(i).setCosto(costoH);
+			
+			
+			hoteles.get(i).setDestino(this);
+			
+			
+			System.out.println("Agrega la capacidad del hotel");	
+			int capacidadH = entrada.nextInt();			
+			hoteles.get(i).setCosto(capacidadH);
+			
+			Hotel.hoteles.add(hoteles.get(i));
+		}
 	}
 	
 	public static void setDestinoSinVisado(String nacionalidad) {
@@ -38,6 +62,10 @@ public class Destino {
 	}
 	public void setHoteles(ArrayList<Hotel> hoteles) {
 		this.hoteles = hoteles;
+	}
+	
+	public void setHotel(Hotel hotel) {
+		hoteles.add(hotel);
 	}
 	
 	

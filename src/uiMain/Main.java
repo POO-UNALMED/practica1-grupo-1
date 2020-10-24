@@ -24,8 +24,7 @@ public class Main {
 		// Super usuario que tiene acceso a todo
 		Agente agenteSupremo = new Agente(10, "SAM", "Colombia", "alma", 0);
 
-		// Primero creamos los agentes ya que cuando se cree un viajero se le debe de
-		// asignar el agente
+		// Primero creamos los agentes ya que cuando se cree un viajero se le debe de asignar el agente
 		Agente agente1 = new Agente(1087904564, "Carlos Bustamente", "Colombia", "Viaja facil", 0.15);
 		Agente agente2 = new Agente(1094520234, "Juan Ramirez", "Colombia", "Despegar", 0.1);
 		Agente agente3 = new Agente(1087904564, "Lucas Bastidas", "Colombia", "Despegar", 0.15);
@@ -49,14 +48,19 @@ public class Main {
 		Destino.setDestinoSinVisado("Dinamarca");
 		Destino.setDestinoSinVisado("España");
 
-		ArrayList<String> nacionalidades1 = new ArrayList<>();
-
-		nacionalidades1.add("Colombia");
-		Destino destino1 = new Destino("San Andres", "Colombia", 973);
-
-		Hotel hotel1 = new Hotel("Hotelucho", 190, destino1, 100);
-
-		Transporte transporte1 = new Transporte("aereo");
+		
+		//Creamos algunos destinos
+		Destino destino1 = new Destino("Ibiza", "España", 1500);
+				
+				
+//		ArrayList<String> nacionalidades1 = new ArrayList<>();
+//
+//		nacionalidades1.add("Colombia");
+//		Destino destino1 = new Destino("San Andres", "Colombia", 973);
+//
+//		Hotel hotel1 = new Hotel("Hotelucho", 190, destino1, 100);
+//
+//		Transporte transporte1 = new Transporte("aereo");
 
 		Texto.presentacion();
 		while (sesion) {
@@ -150,9 +154,9 @@ public class Main {
 				Agente.mejoresAgentes();
 				List<Entry<String, Integer>> list = Agente.mejoresAgentes();
 				for (int i = list.size() - 1; i > list.size() - 4; i--) {
-					System.out.println(list.get(i));
+					System.out.println(list.get(i) );
 				}
-				break;
+				break; 
 			}
 			if (eleccion == 3) {
 				viajerosPorAgente();

@@ -76,8 +76,6 @@ public class Agente extends Persona{
 	public void setComision(double comision) {
 		this.comision = comision;
 	}
-
-	
 	
 	
 	public static ArrayList<Agente> getListaAgentes() {
