@@ -26,6 +26,7 @@ public class Viajero extends Persona {
         this.millas = 0;   
         listaViajeros.add(this);
         agente.atenderCliente(this);
+        
     }
 
     //METODOS HEREDADOS ABSTRACT
@@ -81,6 +82,15 @@ public class Viajero extends Persona {
             }
         }
         return destinosPosibles;
+    }
+    
+    public boolean haViajado(){
+        if(this.getViajesRealizados().isEmpty()){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 
     // GETTERS AND SETTERS

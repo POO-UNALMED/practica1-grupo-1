@@ -1,5 +1,6 @@
 package uiMain;
 
+import gestorAplicacion.persons.Viajero;
 import gestorAplicacion.utils.Destino;
 import gestorAplicacion.utils.Hotel;
 import gestorAplicacion.utils.Tiquete;
@@ -7,7 +8,7 @@ import java.util.*;
 
 public class Texto {
 
-    public static void presentacion() {
+    public void presentacion() {
 
         System.out.println(" ");
         System.out.println(" ");
@@ -26,7 +27,7 @@ public class Texto {
 
     }
 
-    public static void menuUsuario() {
+    public void menuUsuario() {
         System.out.println(" ");
         System.out.println("                  //-------------------- MENU DE USUARIO --------------------//");
         System.out.println(" ");
@@ -43,7 +44,7 @@ public class Texto {
         System.out.println(" ");
     }
 
-    public static void menuViajero() {
+    public void menuViajero() {
         System.out.println(" ");
         System.out.println("                  //-------------------- INFORMACION DE VIAJEROS --------------------//");
         System.out.println(" ");
@@ -61,7 +62,7 @@ public class Texto {
         System.out.println(" ");
     }
 
-    public static void menuAgente() {
+    public void menuAgente() {
         System.out.println(" ");
         System.out.println("                  //-------------------- INFORMACION DE AGENTES --------------------//");
         System.out.println(" ");
@@ -77,7 +78,7 @@ public class Texto {
         System.out.println(" ");
     }
 
-    public static void menuTurismo() {
+    public void menuTurismo() {
         System.out.println(" ");
         System.out.println("                  //-------------------- INFORMACION DE TURISMO --------------------//");
         System.out.println(" ");
@@ -94,7 +95,7 @@ public class Texto {
         System.out.println(" ");
     }
 
-    public static void menuVenta() {
+    public void menuVenta() {
         System.out.println(" ");
         System.out.println("                  //-------------------- VENTA DE VIAJES --------------------//");
         System.out.println(" ");
@@ -110,7 +111,7 @@ public class Texto {
         System.out.println(" ");
     }
 
-    public static void imprimirDestino(Destino d) {
+    public void imprimirDestino(Destino d) {
         System.out.println("//------------------------------------------");
         System.out.println(" Nombre del Destino turístico : " + d.getNombre());
         System.out.println(" A una distancia de: " + d.getDistancia() + " km de Medellin.");
@@ -118,7 +119,7 @@ public class Texto {
         System.out.println(" ");
     }
 
-    public static void imprimirViaje(Tiquete t) {
+    public void imprimirViaje(Tiquete t) {
         System.out.println("//----------------------------");
         System.out.println(" Viaje realizado por : " + t.getViajero().getNombre());
         System.out.println(" Con destino a: " + t.getDestino().getNombre());
@@ -126,15 +127,26 @@ public class Texto {
         System.out.println(" ");
     }
 
-    public static void imprimirTiquete(Tiquete t) {
+    public void imprimirTiquete(Tiquete t) {
 
     }
 
-    public static void imprimirHoteles(Hotel h) {
+    public void imprimirHoteles(Hotel h) {
         System.out.println("//------------------------------");
         System.out.println("Nombre de Hotel: " + h.getNombre());
         System.out.println("Costo por noche: " + h.getCosto() + " pesos");
         System.out.println("Nivel del hotel: " + h.getEstrellas() + " Estrellas.");
     }
-    
+
+    public void imprimirViajero(Viajero v) {
+        System.out.println("//----------------------------------------//");
+        System.out.println("    ID: " + v.getCedula());
+        System.out.println("    Nombre: " + v.getNombre());
+        System.out.println("    Visado vigente: " + v.isVisado());
+        System.out.println("    Millas Acumuladas: " + v.getMillas());
+        System.out.println("    Presupuesto: " + v.getPresupuesto());
+        System.out.println("    Agente encargado: ID :" + v.getAgente().getCedula() + " Nombre: "
+                + v.getAgente().getNombre());
+        System.out.println(" ");
+    }
 }

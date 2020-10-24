@@ -37,6 +37,15 @@ public class Destino {
         return destino;
     }
     
+    public boolean tieneHoteles(){
+        if(this.getHoteles().isEmpty()){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    
     //GETTERS AND SETTERS
 
     public String getNombre() {

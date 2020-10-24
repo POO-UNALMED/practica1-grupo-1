@@ -15,6 +15,7 @@ import uiMain.Texto;
 public class Main {
 
     public static Scanner intro = new Scanner(System.in);
+    public static Texto text = new Texto();
 
     public static void main(String[] args) {
 
@@ -27,7 +28,8 @@ public class Main {
         Agente agente1 = new Agente(11, "Bustamante", true, 0.15);
         Agente agente2 = new Agente(12, "Ramirez", false, 0.1);
         Agente agente3 = new Agente(13, "Bastidas", false, 0.15);
-        Agente agente4 = new Agente(14, "Reinoso", true, 0.181);
+        Agente agente4 = new Agente(14, "Reinoso", true, 0.18);
+        
 
         Viajero viajero1 = new Viajero(1, "Carlos", true, 10000);
         Viajero viajero2 = new Viajero(2, "Marcela", false, 20000);
@@ -48,9 +50,9 @@ public class Main {
         Transporte maritimo = new Transporte("TransMawi", "maritimo");
         Transporte terrestre = new Transporte("La Chalupa", "terrestre");
 
-        Texto.presentacion();
+        text.presentacion();
         while (sesion) {
-            Texto.menuUsuario();
+            text.menuUsuario();
             eleccion = intro.nextInt();
             switch (eleccion) {
 
@@ -85,7 +87,7 @@ public class Main {
         int eleccion = 0;
 
         while (sesion) {
-            Texto.menuViajero();
+            text.menuViajero();
             eleccion = intro.nextInt();
             switch (eleccion) {
                 case 1:
@@ -102,6 +104,7 @@ public class Main {
                     break;
                 case 5:
                     consignarDinero();
+                    break;
                 case 0:
                     sesion = false;
                     break;
@@ -114,7 +117,7 @@ public class Main {
     public static void menuAgente() {
         boolean sesion = true;
         int eleccion = 0;
-        Texto.menuAgente();
+        text.menuAgente();
         while (sesion) {
             eleccion = intro.nextInt();
             if (eleccion == 1) {
@@ -143,7 +146,7 @@ public class Main {
                         "Has seleccionado una opcion invalida intentalo de nuevo eligiendo del 1 al 3, si deseas volver al menu anterior presiona 0");
 
             }
-            Texto.menuAgente();
+            text.menuAgente();
 
         }
     }
@@ -152,7 +155,7 @@ public class Main {
         boolean sesion = true;
         int eleccion = 0;
         while (sesion) {
-            Texto.menuTurismo();
+            text.menuTurismo();
             eleccion = intro.nextInt();
             switch (eleccion) {
                 case 1:
@@ -180,7 +183,7 @@ public class Main {
         boolean sesion = true;
         int eleccion = 0;
         while (sesion) {
-            Texto.menuVenta();
+            text.menuVenta();
             eleccion = intro.nextInt();
             switch (eleccion) {
                 case 1:
@@ -201,22 +204,13 @@ public class Main {
     }
 
     // MÉTODOS DE MENÚ DE VIAJERO:
+    
     public static void imprimirClientes() {
-        ArrayList<Viajero> listaViajero = Viajero.getListaViajeros();
         System.out.println(" ");
         System.out.println("//----------// LISTADO DE CLIENTES DE SAM TRAVEL //----------//");
         System.out.println(" ");
-        for (int i = 0; i < listaViajero.size(); i++) {
-            Viajero viajero = listaViajero.get(i);
-            System.out.println("//----------------------------------------//");
-            System.out.println("    ID: " + viajero.getCedula());
-            System.out.println("    Nombre: " + viajero.getNombre());
-            System.out.println("    Visado vigente: " + viajero.isVisado());
-            System.out.println("    Millas Acumuladas: " + viajero.getMillas());
-            System.out.println("    Presupuesto: " + viajero.getPresupuesto());
-            System.out.println("    Agente encargado: ID :" + viajero.getAgente().getCedula() + " Nombre: "
-                    + viajero.getAgente().getNombre());
-            System.out.println(" ");
+        for (Viajero v : Viajero.getListaViajeros()) {
+            text.imprimirViajero(v);
         }
         System.out.println("//----------// FIN DE LISTADO DE CLIENTES DE SAM TRAVEL //----------//");
     }
@@ -250,9 +244,8 @@ public class Main {
                     visado = false;
                 }
 
-                a = false;
+                a = false;     
                 Viajero nuevoViajero = new Viajero(cedula, nombre, visado, 0);
-
                 System.out.println("El viajero " + nuevoViajero.getNombre() + " ha sido creado satisfactoriamente.");
             } else {
                 System.out.println(" ");
@@ -313,14 +306,14 @@ public class Main {
             cedula = intro.nextInt();
             if (Viajero.verificarCedula(cedula)) {
                 viajero = Viajero.devolverPorCedula(cedula);
-                if (!viajero.getViajesRealizados().isEmpty()) {
+                if (viajero.haViajado()) {
                     for (Tiquete t : viajero.getViajesRealizados()) {
-                        Texto.imprimirViaje(t);
+                        text.imprimirViaje(t);
                     }
                     a = false;
                 } else {
                     System.out.println(" ");
-                    System.out.println("El viajer@ no ha realizado no ha realizado viajes todavía.");
+                    System.out.println("El viajer@ no ha realizado ningún viaje.");
                     a = false;
                 }
 
@@ -386,9 +379,8 @@ public class Main {
         System.out.println(" ");
         System.out.println("//---------- LISTADO DE DESTINOS TURÍSTICOS ----------//");
         System.out.println(" ");
-        ArrayList<Destino> listaDestinos = Destino.getListaDestinos();
-        for (Destino d : listaDestinos) {
-            Texto.imprimirDestino(d);
+        for (Destino d : Destino.getListaDestinos()) {
+            text.imprimirDestino(d);
         }
     }
 
@@ -400,12 +392,12 @@ public class Main {
             String nombreDestino = intro.next();
             if (Destino.existeDestino(nombreDestino)) {
                 destino = Destino.devolverDestino(nombreDestino);
-                if (!destino.getHoteles().isEmpty()) {
+                if (destino.tieneHoteles()) {
                     System.out.println(" ");
                     System.out.println("//---------- LISTADO DE HOTELES PARA " + destino.getNombre() + " ----------//");
                     System.out.println(" ");
                     for (Hotel h : destino.getHoteles()) {
-                        Texto.imprimirHoteles(h);
+                        text.imprimirHoteles(h);
                     }
                     a = false;
                 } else {
@@ -434,6 +426,7 @@ public class Main {
             System.out.println("//-----> Por favor digite el nombre del Destino turístico a crear:");
             nombreDestino = intro.next();
             if (!Destino.existeDestino(nombreDestino)) {
+                
                 System.out.println(" ");
                 System.out.println("//-----> ¿A que distancia esta el Destino de Medellin?");
                 distancia = intro.nextInt();
@@ -443,22 +436,26 @@ public class Main {
                 System.out.println("        2. No es necesario.");
                 System.out.println("//-----> Elección a continuación:");
                 respuestaVisado = intro.nextInt();
+                
                 if (respuestaVisado == 1) {
                     visa = true;
                 } else {
                     visa = false;
                 }
+                
                 Destino destino = new Destino(nombreDestino, distancia, visa);
                 System.out.println(" ");
                 System.out.println("Un nuevo destino turístico a sido creado satisfactoriamente.");
                 System.out.println(" ");
-                Texto.imprimirDestino(destino);
+                text.imprimirDestino(destino);
+                System.out.println(" ");
                 a = false;
 
             } else {
                 System.out.println(" ");
                 System.out.println("El destino turístico escrito ya existe.");
                 System.out.println("Por favor intentelo de nuevo.");
+                System.out.println(" ");
             }
         }
     }
@@ -497,7 +494,7 @@ public class Main {
                 System.out.println(" ");
                 System.out.println("Un nuevo hotel en " + destinoDondeConstruir.getNombre() + " ha sido creado satisfactoriamente.");
                 System.out.println("");
-                Texto.imprimirHoteles(hotel);
+                text.imprimirHoteles(hotel);
                 a = false;
 
             } else {
@@ -632,8 +629,6 @@ public class Main {
         System.out.println("// PRECIO TOTAL: " + miTiquete.getPrecio());
         System.out.println("//-----------------------------------------------------------//");
         System.out.println("//-----------------------------------------------------------//");
-        System.out.println(viajero.getMillas());
-
     }
 
 }
