@@ -416,6 +416,7 @@ public class Main {
         int distancia;
         int respuestaVisado;
         boolean visa;
+        String tipoTransporte;
         System.out.println(" ");
         System.out.println("//---------- CREACION DE NUEVO DESTINO TURISTICO ----------//");
         System.out.println(" ");
@@ -531,9 +532,14 @@ public class Main {
         Viajero viajero = null;
         Agente agenteAsignado = null;
         Destino destino = null;
+        Transporte transporte = null;
         String ciudad;
+        String tipoTransporte = "";
+        int cobranza = 0;
         boolean v = true;
         boolean a = true;
+        boolean c = true;
+        boolean d = true;
 
         System.out.println(" ");
         System.out.println("//----------//PLATAFORMA DE VENTA DE TIQUETES//----------//");
@@ -554,40 +560,75 @@ public class Main {
                 v = false;
             } else {
                 System.out.println("No se encontró un usuario con el número de cedula ingreso, por favor intentelo nuevamente.");
-                System.out.println(" ");
+                System.out.println("//----------------------------------------------------------------");
                 System.out.println(" ");
             }
         }
 
         //Selección de medio de transporte:
-        Map<Destino, int[]> opcionesTransporte = posiblesTransportes(viajero);
+        //
+        Map<Destino, int[]> catalogoTransporte = posiblesTransportes(viajero);
 
-        System.out.println(" ");
-        System.out.println(" ");
-        System.out.println("//-----> Selecciona el sitio turístico que deseas visitar:");
-
-        /*
-        //Seleccionar sitios turísticos disponibles
-        System.out.println("");
-        System.out.println("A continuación el listado de sitios turísticos disponibles para su viaje: ");
-        System.out.println(" ");
-        for (Destino d : Destino.getListaDestinos()) {
-            System.out.println("//----------------------------------------//");
-            System.out.println("   Destino Turístico : " + d.getNombre());
+        while (c) {
             System.out.println(" ");
-        }
-
-        System.out.println("//-----> Escriba el nombre del Destino turístico a viajar.");
-        ciudad = intro.next();
-        for (Destino d : Destino.getListaDestinos()) {
-            if (d.getNombre().equals(ciudad)) {
-                destino = d;
+            System.out.println(" ");
+            System.out.println("//-----> Digite el nombre del destino turístico al que desea viajar:");
+            String decisionDestino = intro.next();
+            if (Destino.existeDestino(decisionDestino)) {
+                destino = Destino.devolverDestino(decisionDestino);
+                c = false;
+            } else {
+                System.out.println(" ");
+                System.out.println("No digitó ningún destino turístico conocido."
+                        + "Por favor vuelvalo a intentar.");
+                System.out.println(" ");
             }
         }
+        while (d) {
+            System.out.println(" ");
+            System.out.println("//---------- SAM TRAVEL -----------// ");
+            System.out.println(" ");
+            System.out.println("Elija su próximo viaje: ");
+            System.out.println("");
+
+            int[] info = catalogoTransporte.get(destino);
+            for (int i = 0; i < info.length; i++) {
+                if ((i == 0) && (info[i] != -1)) {
+                    System.out.println(" ------> 1. Tiquete Aereo por: " + info[i] + " pesos.");
+                } else if ((i == 1) && (info[i] != -1)) {
+                    System.out.println(" ------> 2. Tiquete Terrestre por: " + info[i] + " pesos.");
+                } else if ((i == 2) && (info[i] != -1)) {
+                    System.out.println(" ------> 3. Tiquete Marítimo por " + info[i] + " pesos.");
+                }
+            }
+            System.out.println(" ");
+            System.out.println("    DINERO :" + viajero.getPresupuesto() + " pesos.");
+            System.out.println("//-----> Digite el número del Tiquete que desea adquirir.");
+            int noTiquete = intro.nextInt();
+            if (noTiquete == 1) {
+                tipoTransporte = "aereo";
+                d = false;
+            } else if (noTiquete == 2) {
+                tipoTransporte = "terrestre";
+                d = false;
+            } else if (noTiquete == 3) {
+                tipoTransporte = "maritimo";
+                d = false;
+            } else {
+                System.out.println(" ");
+                System.out.println("Ud no digitó una opción válida.");
+                System.out.println("Vuelvalo a intentar.");
+                System.out.println("//-------------------------------------------");
+            }
+            cobranza = info[noTiquete - 1];
+        }
+
+        viajero.pagar(cobranza); // VIAJERO PAGA EL TIQUETE DE TRANSPORTE.
+        transporte = new Transporte(tipoTransporte, destino);
 
         //Listado de hoteles en ese destino
         System.out.println("");
-        System.out.println("A continuación el listado de hoteles disponibles en ese destino: ");
+        System.out.println("A continuación el listado de hoteles disponibles en " + destino.getNombre());
         System.out.println(" ");
         for (Hotel h : destino.getHoteles()) {
             System.out.println("//----------------------------------------//");
@@ -595,29 +636,6 @@ public class Main {
             System.out.println("   Estrellas: " + h.getEstrellas());
             System.out.println("   Costo: " + h.getCosto());
             System.out.println(" ");
-        }
-
-        //Selección de transporte
-        System.out.println("");
-        System.out.println("//-----> Por favor seleccione el medio de transporte: ");
-        System.out.println("  1.Aereo");
-        System.out.println("  2.Terrestre");
-        System.out.println("  3.Marítimo");
-        System.out.println(" ");
-        System.out.println("  Su eleccion:");
-
-        int eleccionTransporte = intro.nextInt();
-        Transporte transporte = null;
-        switch (eleccionTransporte) {
-            case 1:
-                transporte = new Transporte("Latam", "aereo");
-                break;
-            case 2:
-                transporte = new Transporte("Coomotor", "terrestre");
-                break;
-            case 3:
-                transporte = new Transporte("Maribell", "maritimo");
-                break;
         }
 
         Tiquete miTiquete = new Tiquete(viajero, agenteAsignado, transporte, destino);
@@ -628,14 +646,13 @@ public class Main {
         System.out.println("// Documento: " + viajero.getCedula());
         System.out.println("// A nombre de: " + viajero.getNombre());
         System.out.println("// Con destino a : " + destino.getNombre());
-        System.out.println("// Transporte a cargo de: " + transporte.getNombre() + "(" + transporte.getTipo() + ")");
+        System.out.println("// Transporte de tipo: " + transporte.getTipo());
         System.out.println("// Tiempo de Viaje: " + miTiquete.getTiempoViaje() + " horas");
         System.out.println("// Agente encargado: ID " + agenteAsignado.getCedula() + " Nombre: " + agenteAsignado.getNombre());
         System.out.println(" ");
         System.out.println("// PRECIO TOTAL: " + miTiquete.getPrecio());
         System.out.println("//-----------------------------------------------------------//");
         System.out.println("//-----------------------------------------------------------//");
-         */
     }
 
     public static Map<Destino, int[]> posiblesTransportes(Viajero viajero) {

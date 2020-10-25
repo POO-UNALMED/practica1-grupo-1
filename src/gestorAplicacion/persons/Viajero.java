@@ -90,6 +90,12 @@ public class Viajero extends Persona {
             return true;
         }
     }
+    
+    public void pagar(int cobro){
+        int actual = this.getPresupuesto();
+        setPresupuesto(actual - cobro);
+        
+    }
 
     // GETTERS AND SETTERS
     public int getPresupuesto() {
