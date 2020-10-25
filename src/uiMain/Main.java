@@ -30,7 +30,7 @@ public class Main {
         Agente agente3 = new Agente(13, "Bastidas", false, 0.15);
         Agente agente4 = new Agente(14, "Reinoso", true, 0.18);
 
-        Viajero viajero1 = new Viajero(1, "Carlos", true, 500);
+        Viajero viajero1 = new Viajero(1, "Carlos", true, 1000400);
         Viajero viajero2 = new Viajero(2, "Marcela", false, 20000);
         Viajero viajero3 = new Viajero(3, "Luisa", true, 10000);
         Viajero viajero4 = new Viajero(4, "Andrea", true, 0);
@@ -596,9 +596,9 @@ public class Main {
                 if ((i == 0) && (info[i] != -1)) {
                     System.out.println(" ------> 1. Tiquete Aereo por: " + info[i] + " pesos.");
                 } else if ((i == 1) && (info[i] != -1)) {
-                    System.out.println(" ------> 2. Tiquete Terrestre por: " + info[i] + " pesos.");
+                    System.out.println(" ------> 2. Tiquete Terrestre por: " + info[i]*2 + " pesos.");
                 } else if ((i == 2) && (info[i] != -1)) {
-                    System.out.println(" ------> 3. Tiquete Marítimo por " + info[i] + " pesos.");
+                    System.out.println(" ------> 3. Tiquete Marítimo por " + info[i]*3 + " pesos.");
                 }
             }
             System.out.println(" ");
@@ -662,6 +662,7 @@ public class Main {
 
         //Proceso para determinar cuales tiquetes de viaje puede costear el Viajero.
         Map<Destino, int[]> opcionesTransporte = Destino.esPosibleViajar(viajero);
+        
         opcionesTransporte.forEach((key, value) -> {
             System.out.println("//---------------------------------------------");
             System.out.println("Destino: " + key.getNombre());

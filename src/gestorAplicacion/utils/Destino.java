@@ -70,6 +70,7 @@ public class Destino {
             }
             if((cotizacion[0]==-1)&&(cotizacion[1]==-1)&&(cotizacion[2]==-1)){
                 System.out.println("El presupuesto del viajero no alcanza para viajar a " + d.getNombre() + ".");
+                System.out.println(" ");
             }
             else{
                 cotizacionPorDestino.put(d,cotizacion);
