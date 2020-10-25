@@ -29,9 +29,8 @@ public class Main {
         Agente agente2 = new Agente(12, "Ramirez", false, 0.1);
         Agente agente3 = new Agente(13, "Bastidas", false, 0.15);
         Agente agente4 = new Agente(14, "Reinoso", true, 0.18);
-        
 
-        Viajero viajero1 = new Viajero(1, "Carlos", true, 10000);
+        Viajero viajero1 = new Viajero(1, "Carlos", true, 500);
         Viajero viajero2 = new Viajero(2, "Marcela", false, 20000);
         Viajero viajero3 = new Viajero(3, "Luisa", true, 10000);
         Viajero viajero4 = new Viajero(4, "Andrea", true, 0);
@@ -45,10 +44,6 @@ public class Main {
 
         Hotel hotel1 = new Hotel("Hotelucho", 100, destino1, 2);
         Hotel hotel2 = new Hotel("Chocolate", 60, destino1, 3);
-
-        Transporte aereo = new Transporte("Aerotour", "aereo");
-        Transporte maritimo = new Transporte("TransMawi", "maritimo");
-        Transporte terrestre = new Transporte("La Chalupa", "terrestre");
 
         text.presentacion();
         while (sesion) {
@@ -204,7 +199,9 @@ public class Main {
     }
 
     // MÉTODOS DE MENÚ DE VIAJERO:
-    
+    /*
+        
+     */
     public static void imprimirClientes() {
         System.out.println(" ");
         System.out.println("//----------// LISTADO DE CLIENTES DE SAM TRAVEL //----------//");
@@ -244,7 +241,7 @@ public class Main {
                     visado = false;
                 }
 
-                a = false;     
+                a = false;
                 Viajero nuevoViajero = new Viajero(cedula, nombre, visado, 0);
                 System.out.println("El viajero " + nuevoViajero.getNombre() + " ha sido creado satisfactoriamente.");
             } else {
@@ -426,7 +423,7 @@ public class Main {
             System.out.println("//-----> Por favor digite el nombre del Destino turístico a crear:");
             nombreDestino = intro.next();
             if (!Destino.existeDestino(nombreDestino)) {
-                
+
                 System.out.println(" ");
                 System.out.println("//-----> ¿A que distancia esta el Destino de Medellin?");
                 distancia = intro.nextInt();
@@ -436,13 +433,13 @@ public class Main {
                 System.out.println("        2. No es necesario.");
                 System.out.println("//-----> Elección a continuación:");
                 respuestaVisado = intro.nextInt();
-                
+
                 if (respuestaVisado == 1) {
                     visa = true;
                 } else {
                     visa = false;
                 }
-                
+
                 Destino destino = new Destino(nombreDestino, distancia, visa);
                 System.out.println(" ");
                 System.out.println("Un nuevo destino turístico a sido creado satisfactoriamente.");
@@ -516,15 +513,14 @@ public class Main {
         while (a) {
             System.out.println("//-----> Por favor digite la cedula del viajer@ que desea cotizar un viaje: ");
             cedula = intro.nextInt();
-            if(Viajero.verificarCedula(cedula)){
+            if (Viajero.verificarCedula(cedula)) {
                 viajero = Viajero.devolverPorCedula(cedula);
-                
-            }
-            else{
+
+            } else {
                 System.out.println(" ");
                 System.out.println("No hay ningún viajero con la cédula digitada.");
             }
-            
+
         }
 
     }
@@ -552,7 +548,9 @@ public class Main {
             if (Viajero.verificarCedula(cedulaViajero)) {
                 viajero = Viajero.devolverPorCedula(cedulaViajero);
                 agenteAsignado = viajero.getAgente();
-                System.out.println("Usuario: " + viajero.getNombre() + " encontrado y listo para viajar.");
+                System.out.println("//----------------------------------------------------------------");
+                System.out.println("Viajero: " + viajero.getNombre());
+                System.out.println("Con Presupuesto: " + viajero.getPresupuesto() + " pesos.");
                 v = false;
             } else {
                 System.out.println("No se encontró un usuario con el número de cedula ingreso, por favor intentelo nuevamente.");
@@ -561,6 +559,14 @@ public class Main {
             }
         }
 
+        //Selección de medio de transporte:
+        Map<Destino, int[]> opcionesTransporte = posiblesTransportes(viajero);
+
+        System.out.println(" ");
+        System.out.println(" ");
+        System.out.println("//-----> Selecciona el sitio turístico que deseas visitar:");
+
+        /*
         //Seleccionar sitios turísticos disponibles
         System.out.println("");
         System.out.println("A continuación el listado de sitios turísticos disponibles para su viaje: ");
@@ -629,6 +635,31 @@ public class Main {
         System.out.println("// PRECIO TOTAL: " + miTiquete.getPrecio());
         System.out.println("//-----------------------------------------------------------//");
         System.out.println("//-----------------------------------------------------------//");
+         */
+    }
+
+    public static Map<Destino, int[]> posiblesTransportes(Viajero viajero) {
+        System.out.println(" ");
+        System.out.println("//------- OFERTA DE TRANSPORTE PARA EL VIAJERO " + viajero.getNombre() + " -------//");
+        System.out.println(" ");
+
+        //Proceso para determinar cuales tiquetes de viaje puede costear el Viajero.
+        Map<Destino, int[]> opcionesTransporte = Destino.esPosibleViajar(viajero);
+        opcionesTransporte.forEach((key, value) -> {
+            System.out.println("//---------------------------------------------");
+            System.out.println("Destino: " + key.getNombre());
+            for (int i = 0; i < value.length; i++) {
+                if ((i == 0) && (value[i] != -1)) {
+                    System.out.println("    Costo tiquete aereo: " + value[0] + " pesos.");
+                } else if ((i == 1) && (value[i] != -1)) {
+                    System.out.println("    Costo tiquete terrestre: " + value[1] + " pesos.");
+                } else if ((i == 2) && (value[i] != -1)) {
+                    System.out.println("    Costo tiquete maritimo:  " + value[2] + " pesos.");
+                }
+            }
+        });
+        System.out.println("//---------------------------------------------");
+        return opcionesTransporte;
     }
 
 }

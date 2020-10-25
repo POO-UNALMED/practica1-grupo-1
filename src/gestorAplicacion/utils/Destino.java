@@ -1,12 +1,17 @@
 package gestorAplicacion.utils;
 
+import gestorAplicacion.persons.Viajero;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Destino {
 
     private String nombre;
     private int distancia;
     private boolean pideVisa;
+    private boolean accesoMar;
+    private boolean accesoTierra;
     private ArrayList<Hotel> hoteles = new ArrayList<>();
     private static ArrayList<Destino> listaDestinos = new ArrayList<>();
 
@@ -14,6 +19,8 @@ public class Destino {
         this.nombre = nombre;
         this.distancia = distancia;
         this.pideVisa = pideVisa;
+        this.accesoMar = true;
+        this.accesoTierra = true;
         listaDestinos.add(this);
     }
     //METODO
@@ -45,6 +52,31 @@ public class Destino {
             return true;
         }
     }
+    /*
+    Metodo que determina si el presupuesto del viajero es el suficiente para las diferentes ofertas de transporte del
+    */
+    
+    public static Map<Destino,int[]> esPosibleViajar(Viajero v){
+        Transporte t = new Transporte();
+        int[] cotizacion = new int[3];
+        Map<Destino,int[]> cotizacionPorDestino = new HashMap<Destino,int[]>();
+        int contador = 0;
+        for(Destino d : listaDestinos){
+            cotizacion = t.cotizacionTransporte(d);
+            for(int i = 0 ; i < cotizacion.length ; i ++){
+                if(cotizacion[i] > v.getPresupuesto()){
+                    cotizacion[i] = -1;
+                }
+            }
+            if((cotizacion[0]==-1)&&(cotizacion[1]==-1)&&(cotizacion[2]==-1)){
+                System.out.println("El presupuesto del viajero no alcanza para viajar a " + d.getNombre() + ".");
+            }
+            else{
+                cotizacionPorDestino.put(d,cotizacion);
+            }          
+        }
+        return cotizacionPorDestino;
+    }
     
     //GETTERS AND SETTERS
 
@@ -70,6 +102,22 @@ public class Destino {
 
     public void setPideVisa(boolean pideVisa) {
         this.pideVisa = pideVisa;
+    }
+
+    public boolean isAccesoMar() {
+        return accesoMar;
+    }
+
+    public void setAccesoMar(boolean accesoMar) {
+        this.accesoMar = accesoMar;
+    }
+
+    public boolean isAccesoTierra() {
+        return accesoTierra;
+    }
+
+    public void setAccesoTierra(boolean accesoTierra) {
+        this.accesoTierra = accesoTierra;
     }
 
     public ArrayList<Hotel> getHoteles() {

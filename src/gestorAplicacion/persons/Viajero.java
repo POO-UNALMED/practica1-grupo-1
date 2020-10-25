@@ -23,31 +23,27 @@ public class Viajero extends Persona {
         super(cedula, nombre, visado);
         this.presupuesto = presupuesto;
         this.agente = Agente.agenteAleatorio();
-        this.millas = 0;   
+        this.millas = 0;
         listaViajeros.add(this);
         agente.atenderCliente(this);
-        
     }
 
     //METODOS HEREDADOS ABSTRACT
-    
-    public void obtenerVisado(){
+    public void obtenerVisado() {
         this.setVisado(true);
     }
-    
+
     //MÉTODOS NORMALES
-    
-    public static boolean verificarCedula(int cedulaEntrante){
+    public static boolean verificarCedula(int cedulaEntrante) {
         boolean existe = false;
-        for (Viajero v : listaViajeros){
-            if(v.getCedula() == cedulaEntrante){
+        for (Viajero v : listaViajeros) {
+            if (v.getCedula() == cedulaEntrante) {
                 existe = true;
             }
         }
         return existe;
     }
 
-    
     public static Viajero devolverPorCedula(int cedula) {
         Viajero viajeroActual = null;
         for (Viajero v : listaViajeros) {
@@ -57,44 +53,45 @@ public class Viajero extends Persona {
         }
         return viajeroActual;
     }
-    
-    public void consignarDinero(int consignacion){
+
+    public void consignarDinero(int consignacion) {
         int presupuesto = this.presupuesto;
         this.setPresupuesto(presupuesto + consignacion);
     }
-    
-    public ArrayList<Destino> destinosPosibles(){
+
+    public ArrayList<Destino> destinosPosibles() {
         ArrayList<Destino> destinos = Destino.getListaDestinos();
         ArrayList<Destino> destinosPosibles = new ArrayList<>();
         double costoKMAereo = 1;
         double costoKMTerrestre = 0.7;
         double costoKMMaritimo = 0.8;
         int costo;
-        for(Destino d : destinos){
-            if(d.isPideVisa()&&(this.isVisado())){
+        for (Destino d : destinos) {
+            if (d.isPideVisa() && (this.isVisado())) {
                 costo = d.getDistancia();
-                if(this.getPresupuesto()>=costo){
+                if (this.getPresupuesto() >= costo) {
                     destinosPosibles.add(d);
                 }
-            }
-            else{
-                
+            } else {
+
             }
         }
         return destinosPosibles;
     }
-    
-    public boolean haViajado(){
-        if(this.getViajesRealizados().isEmpty()){
+
+    public void quePuedeCostear() {
+
+    }
+
+    public boolean haViajado() {
+        if (this.getViajesRealizados().isEmpty()) {
             return false;
-        }
-        else{
+        } else {
             return true;
         }
     }
 
     // GETTERS AND SETTERS
-
     public int getPresupuesto() {
         return presupuesto;
     }
@@ -134,7 +131,5 @@ public class Viajero extends Persona {
     public void setViajesRealizados(ArrayList<Tiquete> viajesRealizados) {
         this.viajesRealizados = viajesRealizados;
     }
-    
-    
-    
+
 }

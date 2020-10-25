@@ -1,44 +1,89 @@
 package gestorAplicacion.utils;
 
+import java.util.ArrayList;
+
 public class Transporte {
 
-    String nombre;
-    String tipo;
-    int velocidad;
-    int costoKM;
+    private String tipo;
+    private static final int costoKMAereo = 3;
+    private static final int costoKMTerrestre = 1;
+    private static final int costoKMMaritimo = 2;
+    private Destino destino;
+    private int precio;
+    private int velocidad;
+    private double tiempoDeViaje;
+    private static ArrayList<Transporte> viajesRealizados = new ArrayList<>();
 
-    public Transporte(String nombre, String tipo) {
-        this.nombre = nombre;
+    public Transporte(String tipo, Destino d) {
         this.tipo = tipo;
-        if (tipo.equals("terrestre")) {
-            this.velocidad = 80;
-            this.costoKM = 4;
-        } else if (tipo.equals("aereo")) {
+        this.destino = d;
+        if (tipo.equals("aereo")) {
+            this.precio = d.getDistancia() * costoKMAereo;
             this.velocidad = 300;
-            this.costoKM = 7;
+            this.tiempoDeViaje = d.getDistancia() / velocidad;
+        } else if (tipo.equals("terrestre")) {
+            this.precio = d.getDistancia() * costoKMTerrestre;
+            this.velocidad = 100;
         } else if (tipo.equals("maritimo")) {
-            this.velocidad = 50;
-            this.costoKM = 5;
-        } else {
-            this.velocidad = 0;
-            this.costoKM = 0;
+            this.precio = d.getDistancia() * costoKMMaritimo;
+            this.velocidad = 200;
         }
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+        viajesRealizados.add(this);
     }
     
+    public Transporte(){
+        
+    }
+
+    //METODOS TRANSPORTE    
+    public int[] cotizacionTransporte(Destino d) {
+        int[] cotizacion = new int[3];
+        
+        //Cotizacion viajes aereos.
+        int costoAereo = d.getDistancia() * costoKMAereo;
+        cotizacion[0] = costoAereo;
+        
+        //Cotizacion Viajes por mar.
+        if (d.isAccesoMar()) {
+            int costoMar = d.getDistancia() * costoKMMaritimo;
+            cotizacion[1] = costoMar;
+        } else {
+            cotizacion[1] = -1;
+        }
+        
+        //Cotizacion viajes por Tierra.
+        if (d.isAccesoTierra()) {
+            int costoTierra = d.getDistancia() * costoKMTerrestre;
+            cotizacion[2] = costoTierra;
+        } else {
+            cotizacion[2] = -1;
+        }
+
+        return cotizacion;
+    }
+
     public String getTipo() {
         return tipo;
     }
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public Destino getDestino() {
+        return destino;
+    }
+
+    public void setDestino(Destino destino) {
+        this.destino = destino;
+    }
+
+    public int getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(int precio) {
+        this.precio = precio;
     }
 
     public int getVelocidad() {
@@ -49,12 +94,21 @@ public class Transporte {
         this.velocidad = velocidad;
     }
 
-    public int getCostoKM() {
-        return costoKM;
+    public double getTiempoDeViaje() {
+        return tiempoDeViaje;
     }
 
-    public void setCostoKM(int costoKM) {
-        this.costoKM = costoKM;
+    public void setTiempoDeViaje(double tiempoDeViaje) {
+        this.tiempoDeViaje = tiempoDeViaje;
     }
 
+    public static ArrayList<Transporte> getViajesRealizados() {
+        return viajesRealizados;
+    }
+
+    public static void setViajesRealizados(ArrayList<Transporte> viajesRealizados) {
+        Transporte.viajesRealizados = viajesRealizados;
+    }
+    
+    
 }
