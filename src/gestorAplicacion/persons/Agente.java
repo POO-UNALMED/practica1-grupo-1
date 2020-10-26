@@ -83,6 +83,34 @@ public class Agente extends Persona {
 
         return list;
     }
+    
+    public static Agente existeAgente(int cedula){
+        for(Agente agente : listaAgentes){
+            if(agente.getCedula() == (cedula)){
+                return agente;
+            }
+        }
+        return null;
+    }
+    
+    public static double comision(String nombre) {
+    	for (Agente agente : listaAgentes) {
+			if(agente.getNombre().equals(nombre)) {
+				
+				return agente.getComision();				
+			}
+		}
+    	return 0;
+    }
+    
+    public static boolean buscarCedula(int cedula) {
+    	for (Agente agente : listaAgentes) {
+			if(agente.getCedula() == cedula) {
+				return true;
+			}
+		}
+    	return false;
+    }
 
     // GETTERS AND SETTERS
 

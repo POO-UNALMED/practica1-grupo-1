@@ -116,32 +116,21 @@ public class Main {
         while (sesion) {
             eleccion = intro.nextInt();
             if (eleccion == 1) {
-                System.out.println("Listado de agentes:");
-                ArrayList<Agente> agentes = Agente.getListaAgentes();
-                for (Agente agente : agentes) {
-                    System.out.println(agente.getNombre());
-                }
+                mostrarAgentes();
                 break;
             }
             if (eleccion == 2) {
-                System.out.println("Agentes con mas clientes");
-                Agente.mejoresAgentes();
-                List<Entry<String, Integer>> list = Agente.mejoresAgentes();
-                for (int i = list.size() - 1; i > list.size() - 4; i--) {
-                    System.out.println(list.get(i));
-                }
+                mejoresAgentes();
                 break;
             }
             if (eleccion == 3) {
                 viajerosPorAgente();
-
                 break;
-            } else {
-                System.out.println(
-                        "Has seleccionado una opcion invalida intentalo de nuevo eligiendo del 1 al 3, si deseas volver al menu anterior presiona 0");
-
             }
-            text.menuAgente();
+            if (eleccion == 4) {
+                crearAgente();
+                break;
+            }
 
         }
     }
@@ -198,7 +187,7 @@ public class Main {
         }
     }
 
-    // MÉTODOS DE MENÚ DE VIAJERO:
+    // MÃ‰TODOS DE MENÃš DE VIAJERO:
     /*
         
      */
@@ -217,7 +206,7 @@ public class Main {
         int cedula;
         boolean visado = false;
         System.out.println(" ");
-        System.out.println("//---------- INSCRIPCIÓN DE VIAJERO ----------//");
+        System.out.println("//---------- INSCRIPCIÃ“N DE VIAJERO ----------//");
         System.out.println(" ");
         while (a) {
             System.out.println(" ");
@@ -229,10 +218,10 @@ public class Main {
                 System.out.println("//-----> Inserte nombre del viajero:");
                 String nombre = intro.next();
                 System.out.println(" ");
-                System.out.println("¿El viajero tiene visado? ");
+                System.out.println("Â¿El viajero tiene visado? ");
                 System.out.println("        1. Tiene visado.");
                 System.out.println("        2. No tiene visado.");
-                System.out.println("//-----> Elección a continuación:");
+                System.out.println("//-----> ElecciÃ³n a continuaciÃ³n:");
 
                 int eleccionVisado = intro.nextInt();
                 if (eleccionVisado == 1) {
@@ -246,7 +235,7 @@ public class Main {
                 System.out.println("El viajero " + nuevoViajero.getNombre() + " ha sido creado satisfactoriamente.");
             } else {
                 System.out.println(" ");
-                System.out.println("El número de cédula ingresado ya existe, por favor intentelo nuevamente.");
+                System.out.println("El nÃºmero de cÃ©dula ingresado ya existe, por favor intentelo nuevamente.");
             }
         }
     }
@@ -260,7 +249,7 @@ public class Main {
         System.out.println(" ");
         while (a) {
             System.out.println(" ");
-            System.out.println("//-----> Por favor ingrese el documento de viajero que se le otorgará visa: ");
+            System.out.println("//-----> Por favor ingrese el documento de viajero que se le otorgarÃ¡ visa: ");
             cedula = intro.nextInt();
             if (Persona.verificarCedula(cedula)) {
                 for (Persona p : Persona.getListaPersonas()) {
@@ -273,7 +262,7 @@ public class Main {
                         a = false;
                     } else if ((p.getCedula() == cedula) && (p.isVisado() == true)) {
                         System.out.println(" ");
-                        System.out.println(" El ciudadan@ " + p.getNombre() + " ya tenía un visado internacional.");
+                        System.out.println(" El ciudadan@ " + p.getNombre() + " ya tenÃ­a un visado internacional.");
                         System.out.println(" ");
                         System.out.println("//------------------------------------------------//");
                         a = false;
@@ -281,7 +270,7 @@ public class Main {
                 }
             } else {
                 System.out.println(" ");
-                System.out.println(" No existe ningún ciudadano con la cédula ingresada, por favor intentalo de nuevo.");
+                System.out.println(" No existe ningÃºn ciudadano con la cÃ©dula ingresada, por favor intentalo de nuevo.");
                 System.out.println(" ");
 
             }
@@ -299,7 +288,7 @@ public class Main {
         System.out.println(" ");
         while (a) {
             System.out.println(" ");
-            System.out.println("//-----> Por favor ingrese el documento de viajero al cuál desea ver que viajes ha realizado:");
+            System.out.println("//-----> Por favor ingrese el documento de viajero al cuÃ¡l desea ver que viajes ha realizado:");
             cedula = intro.nextInt();
             if (Viajero.verificarCedula(cedula)) {
                 viajero = Viajero.devolverPorCedula(cedula);
@@ -310,13 +299,13 @@ public class Main {
                     a = false;
                 } else {
                     System.out.println(" ");
-                    System.out.println("El viajer@ no ha realizado ningún viaje.");
+                    System.out.println("El viajer@ no ha realizado ningÃºn viaje.");
                     a = false;
                 }
 
             } else {
                 System.out.println(" ");
-                System.out.println(" No existe ningún viajer@ con la cédula ingresada, por favor intentalo de nuevo.");
+                System.out.println(" No existe ningÃºn viajer@ con la cÃ©dula ingresada, por favor intentalo de nuevo.");
                 System.out.println(" ");
 
             }
@@ -338,7 +327,7 @@ public class Main {
             cedulaCliente = intro.nextInt();
             if (Viajero.verificarCedula(cedulaCliente)) {
                 viajeroConsigna = Viajero.devolverPorCedula(cedulaCliente);
-                System.out.println("//-----> ¿Cuanto dinero desea depositar?");
+                System.out.println("//-----> Â¿Cuanto dinero desea depositar?");
                 consignacion = intro.nextInt();
                 viajeroConsigna.consignarDinero(consignacion);
                 System.out.println(" ");
@@ -352,29 +341,88 @@ public class Main {
         }
     }
 
-    // MÉTODOS DE MENÚ DE AGENTE:
-    public static void viajerosPorAgente() {
-        for (int i = 0; i < Agente.numeroAgentes(); i++) {
-            Agente aux = Agente.getListaAgentes().get(i);
-            if (aux.getListaClientes().isEmpty()) {
-                continue;
-            } else {
-                System.out.println(" El agente: " + aux.getNombre() + " Tienes los siguientes clientes: ");
-                System.out.println(" ");
-                for (int j = 0; j < aux.getListaClientes().size(); j++) {
-                    Viajero v = aux.getListaClientes().get(j);
-                    System.out.println(v.getNombre());
-                }
-                System.out.println(" ");
+    // METODOS DE MENU DE AGENTE:
+    static void mostrarAgentes() {
 
+        ArrayList<Agente> agentes = Agente.getListaAgentes();
+        System.out.println(" ");
+        System.out.println("//------------------------------- LISTADO DE AGENTES ----------------------------//");
+        System.out.println(" ");
+        for (Agente agente : agentes) {
+            System.out.println("//-----------------------------------------------------------//");                                                          //");
+            System.out.println("    Nombre: " + agente.getNombre());
+            System.out.println("    Identificacion: " + agente.getCedula());
+            System.out.println("    Comision ganada: " + agente.getComision());
+        }
+        System.out.println("//-------------------------------------------------------------");
+    }
+
+    static void mejoresAgentes() {
+        System.out.println("Agentes con mas clientes");
+        Agente.mejoresAgentes();
+        List<Entry<String, Integer>> list = Agente.mejoresAgentes();
+        int j = 0;
+        for (int i = list.size() - 1; i > list.size() - 4; i--) {
+            System.out.println("//-----------------------------------------------------------//");
+            System.out.println("//                                                           //");
+            System.out.println("Agente: " + list.get(i).getKey());
+            System.out.println("Numero de viajes vendidos: " + list.get(i).getValue());
+            String agente = list.get(i).getKey();
+            System.out.println("Comision: " + Agente.comision(agente));
+            System.out.println("//                                                           //");
+            System.out.println("//-----------------------------------------------------------//");
+            j++;
+        }
+
+    }
+
+    public static void viajerosPorAgente() {
+        System.out.println("Introduce la cedula del agente");
+        int cedula = intro.nextInt();
+        if (Agente.existeAgente(cedula) != null) {
+            Agente agente = Agente.existeAgente(cedula);
+            if (agente.getListaClientes().size() > 0) {
+                System.out.println("//-----------------------------------------------------------//");
+                System.out.println("//                                                           //");
+                System.out.println(" El agente " + agente.getNombre() + " Tienes los siguientes clientes: ");
+                for (Viajero viajero : agente.getListaClientes()) {
+                    System.out.println("             nombre:  " + viajero.getNombre());
+                }
+                System.out.println("//-----------------------------------------------------------//");
+                System.out.println("//                                                           //");
+            } else {
+                System.out.println(" El agente " + agente.getNombre() + " aun no ha realizado ninguna venta ");
             }
+
         }
     }
 
-    // MÉTODOS DE MENÚ DE TURISMO:
+    static int numeroAgente = 1;
+
+    public static void crearAgente() {
+        System.out.println("//-----------------------------------------------------------//");
+        System.out.println("//                                                           //");
+        System.out.println("Ingrese la cedula del nuevo agente");
+        int cedula = intro.nextInt();
+        if (Agente.buscarCedula(cedula)) {
+            System.out.println("El agente ya se encuentra registrado");
+            System.out.println("//-----------------------------------------------------------//");
+            System.out.println("//                                                           //");
+        } else {
+            System.out.println("Ingrese el nombre del Agente");
+            String nombre = intro.next();
+            System.out.println("//                                                           //");
+            System.out.println("Ingrese el porcentaje de comision ganado por el Agente");
+            double pComision = intro.nextDouble();
+            Agente agente = new Agente(cedula, nombre, false, pComision);
+        }
+
+    }
+
+    // MÃ‰TODOS DE MENÃš DE TURISMO:
     public static void imprimirDestinos() {
         System.out.println(" ");
-        System.out.println("//---------- LISTADO DE DESTINOS TURÍSTICOS ----------//");
+        System.out.println("//---------- LISTADO DE DESTINOS TURÃ�STICOS ----------//");
         System.out.println(" ");
         for (Destino d : Destino.getListaDestinos()) {
             text.imprimirDestino(d);
@@ -399,7 +447,7 @@ public class Main {
                     a = false;
                 } else {
                     System.out.println(" ");
-                    System.out.println("No existen hoteles en este destino turístico.");
+                    System.out.println("No existen hoteles en este destino turÃ­stico.");
                     a = false;
                 }
 
@@ -447,7 +495,7 @@ public class Main {
                 } else {
                     visa = false;
                 }
-                
+
                 System.out.println(" ");
                 System.out.println("//------------------------------------------- ");
                 System.out.println("¿El Destino tiene acceso por vía marítima? ");
@@ -458,13 +506,13 @@ public class Main {
 
                 if (respuestaMar == 1) {
                     accesoMar = true;
-                } else if(respuestaMar == 2){
+                } else if (respuestaMar == 2) {
                     accesoMar = false;
-                }else {
+                } else {
                     System.out.println("");
                     System.out.println("Ud no digitó una opción válida.");
                 }
-                
+
                 System.out.println(" ");
                 System.out.println("//------------------------------------------- ");
                 System.out.println("¿El Destino tiene acceso por vía terrestre? ");
@@ -475,9 +523,9 @@ public class Main {
 
                 if (respuestaTierra == 1) {
                     accesoTierra = true;
-                } else if(respuestaMar == 2){
+                } else if (respuestaMar == 2) {
                     accesoTierra = false;
-                }else {
+                } else {
                     System.out.println("");
                     System.out.println("Ud no digitó una opción válida.");
                 }
@@ -510,24 +558,24 @@ public class Main {
         System.out.println("//---------- CREACION DE HOTEL ----------//");
         System.out.println(" ");
         while (a) {
-            System.out.println("//-----> Por favor digite el nombre del Destino turístico en el cual desea crear un hotel:");
+            System.out.println("//-----> Por favor digite el nombre del Destino turÃ­stico en el cual desea crear un hotel:");
             nombreDestino = intro.next();
             if (Destino.existeDestino(nombreDestino)) {
                 destinoDondeConstruir = Destino.devolverDestino(nombreDestino);
                 System.out.println(" ");
-                System.out.println("//-----> ¿Como se llamara el nuevo Hotel?");
+                System.out.println("//-----> Â¿Como se llamara el nuevo Hotel?");
                 nombreNuevoHotel = intro.next();
                 System.out.println(" ");
-                System.out.println("¿De que categoría es el hotel? ");
+                System.out.println("Â¿De que categorÃ­a es el hotel? ");
                 System.out.println("        1. 1 Estrella.");
                 System.out.println("        2. 2 Estrellas.");
                 System.out.println("        3. 3 Estrellas.");
                 System.out.println("        4. 4 Estrellas.");
                 System.out.println("        5. 5 Estrellas.");
-                System.out.println("//-----> Elección a continuación:");
+                System.out.println("//-----> ElecciÃ³n a continuaciÃ³n:");
                 estrellas = intro.nextInt();
                 System.out.println(" ");
-                System.out.println("//-----> Por ultimo ¿Cuanto es el costo por noche?");
+                System.out.println("//-----> Por ultimo Â¿Cuanto es el costo por noche?");
                 costoPorNoche = intro.nextInt();
                 Hotel hotel = new Hotel(nombreNuevoHotel, costoPorNoche, destinoDondeConstruir, estrellas);
                 System.out.println(" ");
@@ -538,13 +586,13 @@ public class Main {
 
             } else {
                 System.out.println(" ");
-                System.out.println("El destino turístico digitado no existe");
+                System.out.println("El destino turÃ­stico digitado no existe");
                 System.out.println("Por favor intentelo de nuevo.");
             }
         }
     }
 
-    // MÉTODOS DE MENÚ DE VENTAS:
+    // MÃ‰TODOS DE MENÃš DE VENTAS:
     public static void cotizarViaje() {
         boolean a = true;
         Viajero viajero;
@@ -560,7 +608,7 @@ public class Main {
 
             } else {
                 System.out.println(" ");
-                System.out.println("No hay ningún viajero con la cédula digitada.");
+                System.out.println("No hay ningÃºn viajero con la cÃ©dula digitada.");
             }
 
         }
@@ -639,7 +687,7 @@ public class Main {
                 } else if ((i == 1) && (info[i] != -1)) {
                     System.out.println(" ------> 2. Tiquete Terrestre por: " + info[i] + " pesos.");
                 } else if ((i == 2) && (info[i] != -1)) {
-                    System.out.println(" ------> 3. Tiquete Marítimo por " + info[i]*2 + " pesos.");
+                    System.out.println(" ------> 3. Tiquete Marítimo por " + info[i] * 2 + " pesos.");
                 }
             }
             System.out.println(" ");
@@ -723,7 +771,7 @@ public class Main {
 
 }
 
-// Código basura
+// CÃ³digo basura
 /*
     public static void cambiarNacionalidad() {
         ArrayList<Viajero> listaViajero = Viajero.getListaViajeros();
@@ -738,12 +786,12 @@ public class Main {
             }
         }
         if (aux == null) {
-            System.out.println("La cédula insertada no se encuentra inscrita en nuestro sistema.");
+            System.out.println("La cÃ©dula insertada no se encuentra inscrita en nuestro sistema.");
             System.out.println(" ");
             System.out.println("Por favor vuelvalo a intentar.");
             System.out.println(" ");
         } else {
-            System.out.println(" Inserte su nuevo país de origen:");
+            System.out.println(" Inserte su nuevo paÃ­s de origen:");
             String nuevaNacionalidad = intro.next();
             aux.setNacionalidad(nuevaNacionalidad);
             System.out.println(" ");
