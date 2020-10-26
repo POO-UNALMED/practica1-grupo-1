@@ -30,17 +30,17 @@ public class Main {
         Agente agente3 = new Agente(13, "Bastidas", false, 0.15);
         Agente agente4 = new Agente(14, "Reinoso", true, 0.18);
 
-        Viajero viajero1 = new Viajero(1, "Carlos", true, 1000400);
+        Viajero viajero1 = new Viajero(1, "Carlos", true, 500);
         Viajero viajero2 = new Viajero(2, "Marcela", false, 20000);
         Viajero viajero3 = new Viajero(3, "Luisa", true, 10000);
         Viajero viajero4 = new Viajero(4, "Andrea", true, 0);
         Viajero viajero5 = new Viajero(5, "Estefania", false, 0);
         Viajero viajero6 = new Viajero(6, "Diana", true, 0);
 
-        Destino destino1 = new Destino("SanAndres", 500, false);
-        Destino destino2 = new Destino("Cartagena", 300, false);
-        Destino destino3 = new Destino("BuenosAires", 1000, true);
-        Destino destino4 = new Destino("RioDeJaneiro", 800, true);
+        Destino destino1 = new Destino("SanAndres", 500, false, true, false);
+        Destino destino2 = new Destino("Cartagena", 300, false, true, true);
+        Destino destino3 = new Destino("BuenosAires", 1000, true, false, true);
+        Destino destino4 = new Destino("RioDeJaneiro", 800, true, false, false);
 
         Hotel hotel1 = new Hotel("Hotelucho", 100, destino1, 2);
         Hotel hotel2 = new Hotel("Chocolate", 60, destino1, 3);
@@ -415,20 +415,27 @@ public class Main {
         String nombreDestino = " ";
         int distancia;
         int respuestaVisado;
+        int respuestaMar;
+        int respuestaTierra;
         boolean visa;
+        boolean accesoMar = false;
+        boolean accesoTierra = false;
         String tipoTransporte;
         System.out.println(" ");
         System.out.println("//---------- CREACION DE NUEVO DESTINO TURISTICO ----------//");
         System.out.println(" ");
         while (a) {
+            System.out.println("//-----------------------------------------------------------------");
             System.out.println("//-----> Por favor digite el nombre del Destino turístico a crear:");
             nombreDestino = intro.next();
             if (!Destino.existeDestino(nombreDestino)) {
 
                 System.out.println(" ");
+                System.out.println("//----------------------------------------------------");
                 System.out.println("//-----> ¿A que distancia esta el Destino de Medellin?");
                 distancia = intro.nextInt();
                 System.out.println(" ");
+                System.out.println("//----------------------------------------------------");
                 System.out.println("¿El Destino exige visado para poder viajar? ");
                 System.out.println("        1. Exige.");
                 System.out.println("        2. No es necesario.");
@@ -440,8 +447,42 @@ public class Main {
                 } else {
                     visa = false;
                 }
+                
+                System.out.println(" ");
+                System.out.println("//------------------------------------------- ");
+                System.out.println("¿El Destino tiene acceso por vía marítima? ");
+                System.out.println("        1. Tiene entrada por mar.");
+                System.out.println("        2. No tiene.");
+                System.out.println("//-----> Elección a continuación");
+                respuestaMar = intro.nextInt();
 
-                Destino destino = new Destino(nombreDestino, distancia, visa);
+                if (respuestaMar == 1) {
+                    accesoMar = true;
+                } else if(respuestaMar == 2){
+                    accesoMar = false;
+                }else {
+                    System.out.println("");
+                    System.out.println("Ud no digitó una opción válida.");
+                }
+                
+                System.out.println(" ");
+                System.out.println("//------------------------------------------- ");
+                System.out.println("¿El Destino tiene acceso por vía terrestre? ");
+                System.out.println("        1. Tiene acceso por tierra.");
+                System.out.println("        2. No tiene.");
+                System.out.println("//-----> Elección a continuación");
+                respuestaTierra = intro.nextInt();
+
+                if (respuestaTierra == 1) {
+                    accesoTierra = true;
+                } else if(respuestaMar == 2){
+                    accesoTierra = false;
+                }else {
+                    System.out.println("");
+                    System.out.println("Ud no digitó una opción válida.");
+                }
+
+                Destino destino = new Destino(nombreDestino, distancia, visa, accesoMar, accesoTierra);
                 System.out.println(" ");
                 System.out.println("Un nuevo destino turístico a sido creado satisfactoriamente.");
                 System.out.println(" ");
@@ -596,9 +637,9 @@ public class Main {
                 if ((i == 0) && (info[i] != -1)) {
                     System.out.println(" ------> 1. Tiquete Aereo por: " + info[i] + " pesos.");
                 } else if ((i == 1) && (info[i] != -1)) {
-                    System.out.println(" ------> 2. Tiquete Terrestre por: " + info[i]*2 + " pesos.");
+                    System.out.println(" ------> 2. Tiquete Terrestre por: " + info[i] + " pesos.");
                 } else if ((i == 2) && (info[i] != -1)) {
-                    System.out.println(" ------> 3. Tiquete Marítimo por " + info[i]*3 + " pesos.");
+                    System.out.println(" ------> 3. Tiquete Marítimo por " + info[i]*2 + " pesos.");
                 }
             }
             System.out.println(" ");
@@ -662,7 +703,7 @@ public class Main {
 
         //Proceso para determinar cuales tiquetes de viaje puede costear el Viajero.
         Map<Destino, int[]> opcionesTransporte = Destino.esPosibleViajar(viajero);
-        
+
         opcionesTransporte.forEach((key, value) -> {
             System.out.println("//---------------------------------------------");
             System.out.println("Destino: " + key.getNombre());

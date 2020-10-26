@@ -15,12 +15,12 @@ public class Destino {
     private ArrayList<Hotel> hoteles = new ArrayList<>();
     private static ArrayList<Destino> listaDestinos = new ArrayList<>();
 
-    public Destino(String nombre, int distancia, boolean pideVisa) {
+    public Destino(String nombre, int distancia, boolean pideVisa, boolean accesoMar, boolean accesoTierra) {
         this.nombre = nombre;
         this.distancia = distancia;
         this.pideVisa = pideVisa;
-        this.accesoMar = true;
-        this.accesoTierra = true;
+        this.accesoMar = accesoMar;
+        this.accesoTierra = accesoTierra;
         listaDestinos.add(this);
     }
     //METODO
@@ -60,7 +60,6 @@ public class Destino {
         Transporte t = new Transporte();
         int[] cotizacion = new int[3];
         Map<Destino,int[]> cotizacionPorDestino = new HashMap<Destino,int[]>();
-        int contador = 0;
         for(Destino d : listaDestinos){
             cotizacion = t.cotizacionTransporte(d);
             for(int i = 0 ; i < cotizacion.length ; i ++){

@@ -24,24 +24,34 @@ public class Transporte {
         } else if (tipo.equals("terrestre")) {
             this.precio = d.getDistancia() * costoKMTerrestre;
             this.velocidad = 100;
+            this.tiempoDeViaje = d.getDistancia() / velocidad;
         } else if (tipo.equals("maritimo")) {
             this.precio = d.getDistancia() * costoKMMaritimo;
             this.velocidad = 200;
+            this.tiempoDeViaje = d.getDistancia() / velocidad;
         }
         viajesRealizados.add(this);
     }
-    
-    public Transporte(){
-        
+
+    public Transporte() {
+
     }
 
     //METODOS TRANSPORTE    
     public int[] cotizacionTransporte(Destino d) {
         int[] cotizacion = new int[3];
-        
+
         //Cotizacion viajes aereos.
         int costoAereo = d.getDistancia() * costoKMAereo;
         cotizacion[0] = costoAereo;
+
+        //Cotizacion viajes por Tierra.
+        if (d.isAccesoTierra()) {
+            int costoTierra = d.getDistancia() * costoKMTerrestre;
+            cotizacion[2] = costoTierra;
+        } else {
+            cotizacion[2] = -1;
+        }
         
         //Cotizacion Viajes por mar.
         if (d.isAccesoMar()) {
@@ -50,18 +60,11 @@ public class Transporte {
         } else {
             cotizacion[1] = -1;
         }
-        
-        //Cotizacion viajes por Tierra.
-        if (d.isAccesoTierra()) {
-            int costoTierra = d.getDistancia() * costoKMTerrestre;
-            cotizacion[2] = costoTierra;
-        } else {
-            cotizacion[2] = -1;
-        }
 
         return cotizacion;
     }
 
+    //GETTERS AND SETTERS
     public String getTipo() {
         return tipo;
     }
@@ -109,6 +112,5 @@ public class Transporte {
     public static void setViajesRealizados(ArrayList<Transporte> viajesRealizados) {
         Transporte.viajesRealizados = viajesRealizados;
     }
-    
-    
+
 }
