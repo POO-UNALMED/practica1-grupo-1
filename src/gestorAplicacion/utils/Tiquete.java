@@ -8,24 +8,59 @@ import java.util.ArrayList;
 
 public class Tiquete {
 
-    Viajero viajero;
-    Agente agente;
-    Transporte transporte;
-    int tiempoViaje;
-    Destino destino;
-    double precio;
-    ArrayList<Tiquete> viajesRealizados = new ArrayList<>();
+    private Viajero viajero;
+    private Agente agente;
+    private Transporte transporte;
+    private int tiempoViaje;
+    private int diasEstadia;
+    private Destino destino;
+    private Hotel hotel;
+    private double precio;
+    private static ArrayList<Tiquete> viajesRealizados = new ArrayList<>();
 
-    public Tiquete(Viajero viajero, Agente agente, Transporte transporte, Destino destino) {
+    public Tiquete(Viajero viajero, Transporte transporte, Hotel hotel, int diasEstadia) {
         this.viajero = viajero;
-        this.agente = agente;
+        this.agente = viajero.getAgente();
         this.transporte = transporte;
-        this.tiempoViaje = destino.getDistancia() / transporte.getVelocidad();
-        this.destino = destino;
-        this.precio = transporte.getPrecio();
-        viajero.setMillas(destino.getDistancia()/10);
+        this.destino = transporte.getDestino();
+        this.tiempoViaje = this.destino.getDistancia() / transporte.getVelocidad();
+        this.diasEstadia = diasEstadia;
+        this.hotel = hotel;
+        this.precio = calcularPrecio(transporte, hotel, diasEstadia);
+        viajesRealizados.add(this);
+        viajero.setMillas((int) Math.floor(destino.getDistancia() / 10));
         viajero.getViajesRealizados().add(this);
         agente.setComision((double) (agente.getComision() + precio * agente.getpComision()));
+    }
+
+    public Tiquete(Viajero viajero, Transporte transporte) {
+        this.viajero = viajero;
+        this.agente = viajero.getAgente();
+        this.transporte = transporte;
+        this.destino = transporte.getDestino();
+        this.tiempoViaje = this.destino.getDistancia() / transporte.getVelocidad();
+        this.diasEstadia = 0;
+        this.hotel = null;
+        this.precio = calcularPrecio(transporte);
+        viajesRealizados.add(this);
+        viajero.setMillas(destino.getDistancia() / 10);
+        viajero.getViajesRealizados().add(this);
+        agente.setComision((double) (agente.getComision() + precio * agente.getpComision()));
+    }
+
+    public static int calcularPrecio(Transporte t, Hotel h, int diasEstadia) {
+        int precio;
+        int costoTransporte = t.getPrecio();
+        int costoHotel = h.getCosto() * diasEstadia;
+        precio = costoTransporte + costoHotel;
+        return precio;
+    }
+
+    public static int calcularPrecio(Transporte t) {
+        int precio;
+        int costoTransporte = t.getPrecio();
+        precio = costoTransporte;
+        return precio;
     }
 
     public Viajero getViajero() {
@@ -60,12 +95,12 @@ public class Tiquete {
         this.tiempoViaje = tiempoViaje;
     }
 
-    public double getPrecio() {
-        return precio;
+    public int getDiasEstadia() {
+        return diasEstadia;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public void setDiasEstadia(int diasEstadia) {
+        this.diasEstadia = diasEstadia;
     }
 
     public Destino getDestino() {
@@ -74,6 +109,30 @@ public class Tiquete {
 
     public void setDestino(Destino destino) {
         this.destino = destino;
+    }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public static ArrayList<Tiquete> getViajesRealizados() {
+        return viajesRealizados;
+    }
+
+    public static void setViajesRealizados(ArrayList<Tiquete> viajesRealizados) {
+        Tiquete.viajesRealizados = viajesRealizados;
     }
 
 }

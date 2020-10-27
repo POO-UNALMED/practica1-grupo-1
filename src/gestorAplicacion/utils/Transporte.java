@@ -29,6 +29,10 @@ public class Transporte {
             this.precio = d.getDistancia() * costoKMMaritimo;
             this.velocidad = 200;
             this.tiempoDeViaje = d.getDistancia() / velocidad;
+        }else{
+            this.precio = 10000000;
+            this.velocidad = 100;
+            this.tiempoDeViaje = 1;
         }
         viajesRealizados.add(this);
     }
@@ -48,17 +52,17 @@ public class Transporte {
         //Cotizacion viajes por Tierra.
         if (d.isAccesoTierra()) {
             int costoTierra = d.getDistancia() * costoKMTerrestre;
-            cotizacion[2] = costoTierra;
+            cotizacion[1] = costoTierra;
         } else {
-            cotizacion[2] = -1;
+            cotizacion[1] = -1;
         }
         
         //Cotizacion Viajes por mar.
         if (d.isAccesoMar()) {
             int costoMar = d.getDistancia() * costoKMMaritimo;
-            cotizacion[1] = costoMar;
+            cotizacion[2] = costoMar;
         } else {
-            cotizacion[1] = -1;
+            cotizacion[2] = -1;
         }
 
         return cotizacion;

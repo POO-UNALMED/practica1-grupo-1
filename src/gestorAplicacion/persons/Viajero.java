@@ -1,6 +1,7 @@
 package gestorAplicacion.persons;
 
 import gestorAplicacion.utils.Destino;
+import gestorAplicacion.utils.Hotel;
 import gestorAplicacion.utils.Tiquete;
 import uiMain.Texto;
 
@@ -79,8 +80,20 @@ public class Viajero extends Persona {
         return destinosPosibles;
     }
 
-    public void quePuedeCostear() {
-
+    public boolean puedePagarHotel(Destino d) {
+        ArrayList<Hotel> hoteles = d.getHoteles();
+        int contador = 0;
+        for(Hotel h : hoteles){
+            if(this.getPresupuesto() > h.getCosto()){
+                contador ++;
+            }
+        }
+        if(contador==0){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 
     public boolean haViajado() {
@@ -95,6 +108,14 @@ public class Viajero extends Persona {
         int actual = this.getPresupuesto();
         setPresupuesto(actual - cobro);
         
+    }
+    public void redimirMillas(){
+        this.setPresupuesto(this.presupuesto + this.millas);
+        this.setMillas(0);
+    }
+    
+    public void retiroViajero(){
+        listaViajeros.remove(this);
     }
 
     // GETTERS AND SETTERS

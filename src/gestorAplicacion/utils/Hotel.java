@@ -23,6 +23,26 @@ public class Hotel {
         destino.getHoteles().add(this);
     }
 
+    public static boolean existeHotel(String nombreHotel) {
+        boolean existe = false;
+        for (Hotel h : hoteles) {
+            if (h.getNombre().equals(nombreHotel)) {
+                existe = true;
+            }
+        }
+        return existe;
+    }
+
+    public static Hotel devolverHotel(String nombreHotel) {
+        Hotel hotel = null;
+        for (Hotel h : hoteles) {
+            if (h.getNombre().equals(nombreHotel)) {
+                hotel = h;
+            }
+        }
+        return hotel;
+    }
+
     public String getNombre() {
         return nombre;
     }

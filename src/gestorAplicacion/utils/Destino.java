@@ -4,6 +4,7 @@ import gestorAplicacion.persons.Viajero;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import uiMain.Texto;
 
 public class Destino {
 
@@ -23,63 +24,63 @@ public class Destino {
         this.accesoTierra = accesoTierra;
         listaDestinos.add(this);
     }
+
     //METODO
-    public static boolean existeDestino(String nombreDestino){
+    public static boolean existeDestino(String nombreDestino) {
         boolean existe = false;
-        for(Destino d : listaDestinos){
-            if(d.getNombre().equals(nombreDestino)){
+        for (Destino d : listaDestinos) {
+            if (d.getNombre().equals(nombreDestino)) {
                 existe = true;
             }
         }
         return existe;
     }
-    
-    public static Destino devolverDestino(String nombreDestino){
+
+    public static Destino devolverDestino(String nombreDestino) {
         Destino destino = null;
-        for(Destino d : listaDestinos){
-            if(d.getNombre().equals(nombreDestino)){
+        for (Destino d : listaDestinos) {
+            if (d.getNombre().equals(nombreDestino)) {
                 destino = d;
             }
         }
         return destino;
     }
-    
-    public boolean tieneHoteles(){
-        if(this.getHoteles().isEmpty()){
+
+    public boolean tieneHoteles() {
+        if (this.getHoteles().isEmpty()) {
             return false;
-        }
-        else{
+        } else {
             return true;
         }
     }
+
     /*
     Metodo que determina si el presupuesto del viajero es el suficiente para las diferentes ofertas de transporte del
-    */
-    
-    public static Map<Destino,int[]> esPosibleViajar(Viajero v){
+     */
+
+    public static Map<Destino, int[]> esPosibleViajar(Viajero v) {
         Transporte t = new Transporte();
         int[] cotizacion = new int[3];
-        Map<Destino,int[]> cotizacionPorDestino = new HashMap<Destino,int[]>();
-        for(Destino d : listaDestinos){
+        Map<Destino, int[]> cotizacionPorDestino = new HashMap<Destino, int[]>();
+        for (Destino d : listaDestinos) {
             cotizacion = t.cotizacionTransporte(d);
-            for(int i = 0 ; i < cotizacion.length ; i ++){
-                if(cotizacion[i] > v.getPresupuesto()){
+            for (int i = 0; i < cotizacion.length; i++) {
+                if (cotizacion[i] > v.getPresupuesto()) {
                     cotizacion[i] = -1;
                 }
             }
-            if((cotizacion[0]==-1)&&(cotizacion[1]==-1)&&(cotizacion[2]==-1)){
-                System.out.println("El presupuesto del viajero no alcanza para viajar a " + d.getNombre() + ".");
-                System.out.println(" ");
+            if ((cotizacion[0] == -1) && (cotizacion[1] == -1) && (cotizacion[2] == -1)) {
+                Texto.alertaNoSePuedePagarViaje(d);
+
+            } else {
+                cotizacionPorDestino.put(d, cotizacion);
             }
-            else{
-                cotizacionPorDestino.put(d,cotizacion);
-            }          
         }
         return cotizacionPorDestino;
-    }
-    
-    //GETTERS AND SETTERS
 
+    }
+
+    //GETTERS AND SETTERS
     public String getNombre() {
         return nombre;
     }
@@ -135,6 +136,5 @@ public class Destino {
     public static void setListaDestinos(ArrayList<Destino> listaDestinos) {
         Destino.listaDestinos = listaDestinos;
     }
-    
 
 }
