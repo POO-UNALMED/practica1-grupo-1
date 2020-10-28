@@ -1,3 +1,3 @@
-java -jar samtravel.jar
+java -jar Sam-travel.jar
 @echo off
 pause
