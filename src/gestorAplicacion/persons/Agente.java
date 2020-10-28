@@ -7,22 +7,28 @@ import java.util.Map.Entry;
 
 public class Agente extends Persona {
 
-    private double pComision;
-    private double comision;
+    private final double pComision = 0.10;
+    private int comision;
     private ArrayList<Viajero> listaClientes = new ArrayList<>();
     private static ArrayList<Agente> listaAgentes = new ArrayList<>();
 
     //CONSTRUCTOR
-    public Agente(int cedula, String nombre, boolean visado, double pComision) {
+    public Agente(int cedula, String nombre, boolean visado) {
         super(cedula, nombre, visado);
-        this.pComision = pComision;
         this.comision = 0;
         listaAgentes.add(this);
     }
 
-    //METODOS HEREDADOS ABSTRACT 
+    //METODOS HEREDADOS ABSTRACT
+    //Métodos heredados de Persona
+    @Override
     public void obtenerVisado(){
         this.setVisado(true);
+    }
+    
+    @Override
+    public void retirarse(){
+        listaAgentes.remove(this);
     }
     
     //MÉTODOS
@@ -111,22 +117,18 @@ public class Agente extends Persona {
 		}
     	return false;
     }
+    
+    public void comisionar(int total){
+        setComision((int)(total*pComision));
+    }
 
     // GETTERS AND SETTERS
 
-    public double getpComision() {
-        return pComision;
-    }
-
-    public void setpComision(double pComision) {
-        this.pComision = pComision;
-    }
-
-    public double getComision() {
+    public int getComision() {
         return comision;
     }
 
-    public void setComision(double comision) {
+    public void setComision(int comision) {
         this.comision = comision;
     }
 

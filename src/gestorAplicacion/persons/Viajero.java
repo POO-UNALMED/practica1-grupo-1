@@ -7,7 +7,7 @@ import uiMain.Texto;
 
 import java.util.*;
 
-public class Viajero extends Persona {
+public class Viajero extends Persona implements Consumidor {
 
     private int presupuesto;
     private Agente agente;
@@ -30,11 +30,36 @@ public class Viajero extends Persona {
     }
 
     //METODOS HEREDADOS ABSTRACT
+    // Para que al ciudadano se le pueda otorgar una visa, debe tener un mínimo de presupuesto de 5000.
+    //Además debe haber viajado por lo menos una vez.
     public void obtenerVisado() {
-        this.setVisado(true);
+        int money = this.presupuesto;
+        int viajesHechos = this.viajesRealizados.size();
+        if ((money >= 5000) && (viajesHechos >= 1)) {
+            this.setVisado(true);
+        } else {
+            this.setVisado(false);
+        }
     }
+    
+    //Método que hace que el viajero se retire del sistema.
+    @Override
+    public void retirarse() {
+        listaViajeros.remove(this);
+    }
+    
+    //Método que se implementa de la interfaz de consumidor.
+    @Override
+    public void pagar(int cobro) {
+        int actual = this.getPresupuesto();
+        setPresupuesto(actual - cobro);
 
-    //MÉTODOS NORMALES
+    }
+    
+    //METODO HEREDADO DE PERSONA
+    //Busca si el viajero está dentro de la base de datos.
+    //Lo buscará a partir de su número de cédula.
+    //Devolverá un booleano si lo encuentra o no.
     public static boolean verificarCedula(int cedulaEntrante) {
         boolean existe = false;
         for (Viajero v : listaViajeros) {
@@ -44,7 +69,11 @@ public class Viajero extends Persona {
         }
         return existe;
     }
-
+    
+    //MÉTODOS NORMALES
+    //Busca si el viajero está dentro de la base de datos.
+    //Lo buscará a partir de su número de cédula.
+    //Devolverá la instancia que coincida con la búsqueda.
     public static Viajero devolverPorCedula(int cedula) {
         Viajero viajeroActual = null;
         for (Viajero v : listaViajeros) {
@@ -54,18 +83,18 @@ public class Viajero extends Persona {
         }
         return viajeroActual;
     }
-
+    
+    //Para aumentar el presupuesto de un viajero.
     public void consignarDinero(int consignacion) {
         int presupuesto = this.presupuesto;
         this.setPresupuesto(presupuesto + consignacion);
     }
 
+    //Método que recorre destinos, buscando si exigen o no el visado (en caso de que el viajero no tenga)
+    // y también si el presupuesto del viajero es el necesario para ir al destino.
     public ArrayList<Destino> destinosPosibles() {
         ArrayList<Destino> destinos = Destino.getListaDestinos();
         ArrayList<Destino> destinosPosibles = new ArrayList<>();
-        double costoKMAereo = 1;
-        double costoKMTerrestre = 0.7;
-        double costoKMMaritimo = 0.8;
         int costo;
         for (Destino d : destinos) {
             if (d.isPideVisa() && (this.isVisado())) {
@@ -73,29 +102,28 @@ public class Viajero extends Persona {
                 if (this.getPresupuesto() >= costo) {
                     destinosPosibles.add(d);
                 }
-            } else {
-
-            }
+            } 
         }
         return destinosPosibles;
     }
-
+    
+    //Verifica si el viajero puede o no permitirse pagar un hotel.
     public boolean puedePagarHotel(Destino d) {
         ArrayList<Hotel> hoteles = d.getHoteles();
         int contador = 0;
-        for(Hotel h : hoteles){
-            if(this.getPresupuesto() > h.getCosto()){
-                contador ++;
+        for (Hotel h : hoteles) {
+            if (this.getPresupuesto() > h.getCosto()) {
+                contador++;
             }
         }
-        if(contador==0){
+        if (contador == 0) {
             return false;
-        }
-        else{
+        } else {
             return true;
         }
     }
-
+    //Se llama este método cuando se quiere saber si cumple el requisito para sacar pasaporte.
+    //Este requisito es que el viajero haya realizado por lo menos un viaje.
     public boolean haViajado() {
         if (this.getViajesRealizados().isEmpty()) {
             return false;
@@ -104,18 +132,10 @@ public class Viajero extends Persona {
         }
     }
     
-    public void pagar(int cobro){
-        int actual = this.getPresupuesto();
-        setPresupuesto(actual - cobro);
-        
-    }
-    public void redimirMillas(){
+    //Método que se invoca cuando el viajero quiere redimir millas.
+    public void redimirMillas() {
         this.setPresupuesto(this.presupuesto + this.millas);
         this.setMillas(0);
-    }
-    
-    public void retiroViajero(){
-        listaViajeros.remove(this);
     }
 
     // GETTERS AND SETTERS

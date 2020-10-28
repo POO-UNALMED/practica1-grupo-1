@@ -13,7 +13,8 @@ public class Transporte {
     private int velocidad;
     private double tiempoDeViaje;
     private static ArrayList<Transporte> viajesRealizados = new ArrayList<>();
-
+    
+    
     public Transporte(String tipo, Destino d) {
         this.tipo = tipo;
         this.destino = d;
@@ -41,7 +42,8 @@ public class Transporte {
 
     }
 
-    //METODOS TRANSPORTE    
+    //METODOS TRANSPORTE
+    //Método que devuelve todas las ofertas de transporte que podría adquirir un viajero.
     public int[] cotizacionTransporte(Destino d) {
         int[] cotizacion = new int[3];
 

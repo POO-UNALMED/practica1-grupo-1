@@ -11,8 +11,7 @@ public class Hotel {
     private int costo;
     private Destino destino;
     private int estrellas;
-    private ArrayList<Viajero> visitantes = new ArrayList<>();
-    public static ArrayList<Hotel> hoteles = new ArrayList<>();
+    private static ArrayList<Hotel> hoteles = new ArrayList<>();
 
     public Hotel(String nombre, int costo, Destino destino, int estrellas) {
         this.nombre = nombre;
@@ -42,7 +41,9 @@ public class Hotel {
         }
         return hotel;
     }
-
+    
+    
+    //GETTERS AND SETTERS
     public String getNombre() {
         return nombre;
     }
@@ -73,14 +74,6 @@ public class Hotel {
 
     public void setEstrellas(int estrellas) {
         this.estrellas = estrellas;
-    }
-
-    public ArrayList<Viajero> getVisitantes() {
-        return visitantes;
-    }
-
-    public void setVisitantes(ArrayList<Viajero> visitantes) {
-        this.visitantes = visitantes;
     }
 
     public ArrayList<Hotel> getHoteles() {

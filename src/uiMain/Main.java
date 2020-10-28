@@ -14,22 +14,27 @@ import uiMain.Texto;
 
 public class Main {
 
+    /*
+    CLASE P
+     */
+    //Instancia desde donde se prepara la 
     public static Scanner intro = new Scanner(System.in);
     public static Texto text = new Texto();
 
+    //Este método es el menu principal desde donde se redireccionan todos los demás menús y funcionalidades del sistema.
+    // Lugar desde donde se corre el programa por supuesto.
     public static void main(String[] args) {
 
         boolean sesion = true;
         int eleccion = 0;
-        int eleccion2 = 0;
 
         //INSTANCIAS DE AGENTE
-        Agente agenteSupremo = new Agente(10, "SAM", true, 0.13);
-        Agente agente1 = new Agente(11, "Bustamante", true, 0.15);
-        Agente agente2 = new Agente(12, "Ramirez", false, 0.12);
-        Agente agente3 = new Agente(13, "Bastidas", false, 0.15);
-        Agente agente4 = new Agente(14, "Castillo", true, 0.18);
-        Agente agente5 = new Agente(15, "Reinoso", true, 0.18);
+        Agente agenteSupremo = new Agente(10, "SAM", true);
+        Agente agente1 = new Agente(11, "Bustamante", true);
+        Agente agente2 = new Agente(12, "Ramirez", false);
+        Agente agente3 = new Agente(13, "Bastidas", false);
+        Agente agente4 = new Agente(14, "Castillo", true);
+        Agente agente5 = new Agente(15, "Reinoso", true);
 
         //INSTANCIAS DE VIAJERO
         Viajero viajero1 = new Viajero(1, "Carlos", true, 5000);
@@ -39,8 +44,8 @@ public class Main {
         Viajero viajero5 = new Viajero(5, "Estefania", false, 1000);
         Viajero viajero6 = new Viajero(6, "Diana", true, 10000);
         Viajero viajero7 = new Viajero(7, "Ulises", false, 2500);
-        Viajero viajero8 = new Viajero(8, "Julio", true, 4300);
-        Viajero viajero9 = new Viajero(9, "Alberto", false, 5000);
+        Viajero viajero8 = new Viajero(8, "Julio", true, 0);
+        Viajero viajero9 = new Viajero(9, "Alberto", false, 100);
 
         //INSTANCIAS DE DESTINO
         Destino destino1 = new Destino("SanAndres", 500, false, true, false);
@@ -131,6 +136,7 @@ public class Main {
         }
     }
 
+    //Switch que maneja el Menu de Viajero.
     public static void menuViajero() {
 
         boolean sesion = true;
@@ -170,6 +176,7 @@ public class Main {
         }
     }
 
+    //Switch que maneja el Menu de Agente
     public static void menuAgente() {
         boolean sesion = true;
         int eleccion = 0;
@@ -197,6 +204,7 @@ public class Main {
         }
     }
 
+    //Switch que maneja el Menu de Turismo
     public static void menuTurismo() {
         boolean sesion = true;
         int eleccion = 0;
@@ -225,6 +233,7 @@ public class Main {
         }
     }
 
+    //Switch que maneja el Menu de Ventas
     public static void menuVenta() {
         boolean sesion = true;
         int eleccion = 0;
@@ -249,7 +258,9 @@ public class Main {
         }
     }
 
-    // METODOS DE MENÃš DE VIAJERO:
+    // METODOS DE MENU DE VIAJERO:
+    //Es un método que sirve para pedir el número de cedula de un viajero, verificar si está en el sistema
+    //Si encuentra ocurrencia, devuelve al objeto Viajero que tiene ese mismo int cedula.
     public static Viajero seleccionarViajero() {
         boolean v = true;
         Viajero viajero = null;
@@ -273,6 +284,7 @@ public class Main {
         return viajero;
     }
 
+    //Sirve para imprimir los datos de un cliente.
     public static void imprimirClientes() {
         System.out.println(" ");
         System.out.println("//----------// LISTADO DE CLIENTES DE SAM TRAVEL //----------//");
@@ -283,6 +295,8 @@ public class Main {
         System.out.println("//----------// FIN DE LISTADO DE CLIENTES DE SAM TRAVEL //----------//");
     }
 
+    //Método que gestiona la creación de un viajero.
+    //Pide los datos necesarios para armar el constructor de Viajero.
     public static void inscribirViajero() {
         boolean a = true;
         int cedula;
@@ -325,6 +339,7 @@ public class Main {
         }
     }
 
+    //Método que gestiona si una persona puede ser visada.
     public static void otorgarVisado() {
         boolean a = true;
         boolean visado;
@@ -339,11 +354,21 @@ public class Main {
             if (Persona.verificarCedula(cedula)) {
                 for (Persona p : Persona.getListaPersonas()) {
                     if ((p.getCedula() == cedula) && (p.isVisado() == false)) {
-                        p.setVisado(true);
-                        System.out.println(" ");
-                        System.out.println(" El ciudadan@ " + p.getNombre() + " ahora tiene un visado internacional.");
-                        System.out.println(" ");
-                        System.out.println("//------------------------------------------------//");
+                        p.obtenerVisado();
+                        if (p.isVisado()) {
+                            System.out.println(" ");
+                            System.out.println(" El ciudadan@ " + p.getNombre() + " ahora tiene un visado internacional.");
+                            System.out.println(" ");
+                            System.out.println("//------------------------------------------------//");
+                        } else {
+                            System.out.println(" ");
+                            System.out.println(" El ciudadan@ " + p.getNombre() + " no reuna las condiciones necesarias para obtener un pasaporte internacional.");
+                            System.out.println(" El ciudadano debería cumplir las siguientes requisitos: ");
+                            System.out.println("    - Tener por lo menos 5000 pesos en su presupuesto.");
+                            System.out.println("    - Haber viajado por lo menos una vez con SamTravel.");
+
+                        }
+
                         a = false;
                     } else if ((p.getCedula() == cedula) && (p.isVisado() == true)) {
                         System.out.println(" ");
@@ -363,6 +388,7 @@ public class Main {
         }
     }
 
+    //Pregunta por cedula de Viajero, para posteriormente imprimir los tiquetes que haya comprado.
     public static void viajesPorCliente() {
         boolean a = true;
         boolean visado;
@@ -379,7 +405,7 @@ public class Main {
                 viajero = Viajero.devolverPorCedula(cedula);
                 if (viajero.haViajado()) {
                     for (Tiquete t : viajero.getViajesRealizados()) {
-                        text.imprimirViaje(t);
+                        text.imprimirTiquete(t);
                     }
                     a = false;
                 } else {
@@ -398,6 +424,7 @@ public class Main {
         }
     }
 
+    //Método que se invoca cuando se quiere consignar dinero a la cuenta de un viajero.
     public static void consignarDinero() {
         boolean a = true;
         int cedulaCliente;
@@ -426,6 +453,7 @@ public class Main {
         }
     }
 
+    //Método usado cuando el viajero quiere redimir sus millas a dinero de presupuesto.
     public static void redimirMillas() {
         System.out.println("");
         System.out.println("//----------------- SISTEMA DE REDENCION DE MILLAS ----------------------//");
@@ -443,23 +471,24 @@ public class Main {
 
     }
 
+    //Cuando un viajero desea retirarse del sistema.
     public static void retirarViajero() {
         System.out.println("");
         System.out.println("//----------------- RETIRO DE VIAJERO ----------------------//");
-        System.out.println("");
         Viajero viajero = seleccionarViajero();
         System.out.println(" El viajero " + viajero.getNombre() + " será retirado del sistema.");
         System.out.println(" El presupuesto de " + viajero.getPresupuesto() + " pesos y " + viajero.getMillas() + " millas serán devueltos en dinero al viajero.");
         viajero.redimirMillas();
         System.out.println(" Devolucion total: " + viajero.getPresupuesto() + " pesos.");
         System.out.println(" ");
-        viajero.retiroViajero();
+        viajero.retirarse();
         System.out.println(" El viajero ha sido retirado satisfactoriamente del sistema.");
         System.out.println("//---------------------------------------------------------------");
 
     }
 
     // METODOS DE MENU DE AGENTE:
+    //Imprime los agentes en sistema (lista contenido dentro de la misma clase agente)
     public static void mostrarAgentes() {
 
         ArrayList<Agente> agentes = Agente.getListaAgentes();
@@ -476,6 +505,7 @@ public class Main {
         System.out.println("//-------------------------------------------------------------");
     }
 
+    //Imprime los agentes que más cantidad de clientes manejan.
     public static void mejoresAgentes() {
         System.out.println("Agentes con mas clientes");
         Agente.mejoresAgentes();
@@ -493,6 +523,7 @@ public class Main {
 
     }
 
+    //Imprime los clientes de un agente, el agente se determina a partir de una cedula ingresada.
     public static void viajerosPorAgente() {
         System.out.println("Introduce la cedula del agente");
         int cedula = intro.nextInt();
@@ -518,6 +549,7 @@ public class Main {
         }
     }
 
+    //Creacion de Agente.
     public static void crearAgente() {
         System.out.println("//-----------------------------------------------------------//");
         System.out.println("//                                                           //");
@@ -530,15 +562,16 @@ public class Main {
         } else {
             System.out.println("Ingrese el nombre del Agente");
             String nombre = intro.next();
-            System.out.println("//                                                           //");
-            System.out.println("Ingrese el porcentaje de comision ganado por el Agente");
-            double pComision = intro.nextDouble();
-            Agente agente = new Agente(cedula, nombre, false, pComision);
+            Agente agente = new Agente(cedula, nombre, true);
+            System.out.println(" ");
+            System.out.println(" Se ha contratado al agente " + agente.getNombre() + ".");
+            System.out.println(" ");
         }
 
     }
 
     // METODOS MENU DE TURISMO:
+    //Método que recorre los destinos 1 a 1 para imprimirlos en consola.
     public static void imprimirDestinos() {
         System.out.println(" ");
         System.out.println("//---------- LISTADO DE DESTINOS TURISTICOS ----------//");
@@ -548,6 +581,7 @@ public class Main {
         }
     }
 
+    //Imprime los hoteles que hay un destino a partir de el nombre del destino.
     public static void verHotelesDestino() {
         Destino destino;
         boolean a = true;
@@ -576,6 +610,10 @@ public class Main {
         }
     }
 
+    //Método que pide los datos necesarios para la creación de un nuevo destino.
+    //Pregunto la distancia desde Medellin debido a que es el punto de referencia.
+    //Si el lugar no tiene acceso por mar, luego no se podrán vender tiquetes marítimos, de igual manera con el acceso a Tierra.
+    //Es requisito del constructor saber si el lugar exige o no visado.
     public static void crearNuevoDestino() {
         boolean a = true;
         String nombreDestino = " ";
@@ -667,6 +705,9 @@ public class Main {
         }
     }
 
+    //El costo por noche es para determinar si el viajero puede pagar o no una noche de hotal.
+    //Las estrellas no tiene utilidad practica en el programa.
+    //Pide primeramente el destino donde se piensa construir y el nombre que se le quiere dar al hotel.
     public static void crearHotel() {
         boolean a = true;
         String nombreDestino = " ";
@@ -716,6 +757,9 @@ public class Main {
     }
 
     // METODOS DE MENU DE VENTAS:
+    //Método que administra una funcionalidad interesante.
+    //El viajero se determina con el ingreso de la cedula.
+    //Determina que tiquetes de transporte podría pagar el viajero.
     public static void cotizarViaje() {
         boolean a = true;
         Viajero viajero;
@@ -740,6 +784,67 @@ public class Main {
 
     }
 
+    /*
+        Destino tiene un método de instancia que se llama esPosibleViajar(Viajero) que permite determinar cuales opciones de transporte
+        son posibles económicamente para el viajero que entra como parámetro.
+        Ese método devuelve un Map<Destino,int[]> que contiene todos los destinos a los que se podía permitir el viajero aunque sea una modalidad de viaje.
+        La key es Destino, pero el value es un int[] de 3 espacios que contiene el valor del transporte para ese destino en Aereo, Terrestre y Marítimo respectivamente..
+        Si el transporte no es posible entonces el valor de ese espacio en int[] será -1. Estos son los motivos por los que podría ser -1:
+            - El viajero no lo puede pagar.
+            - No tiene visado y el sitio lo exige.
+            - Que el Destino no tenga ese tipo de acceso, por ejemplo a SanAndres no se le puede ofertar un tiquete terrestre.
+        El método recorre la oferta de transporte, la compara con las condiciones del cliente y si puede comprar un transporte en un destino, lo anexa a un archivo Map<Destino, int[]> ;
+        Por último el método retorna opcionesTransporte => Map<Destino, int[]> 
+     */
+    public static Map<Destino, int[]> posiblesTransportes(Viajero viajero) {
+        System.out.println(" ");
+        System.out.println("//------- OFERTA DE TRANSPORTE PARA EL VIAJERO " + viajero.getNombre() + " -------//");
+        System.out.println(" ");
+        System.out.println(" A continuación se imprimirán todas los posibles tiquetes de transporte que podría comprar el viajero.");
+        System.out.println("    Esto último a partir de su presupuesto actual de " + viajero.getPresupuesto() + " pesos.");
+        System.out.println("");
+        System.out.println("//--------------------------------------------------------------------------------------");
+        System.out.println(" ");
+
+        //Proceso para determinar cuales tiquetes de viaje puede costear el Viajero.
+        Map<Destino, int[]> opcionesTransporte = Destino.esPosibleViajar(viajero);
+        opcionesTransporte.forEach((key, value) -> {
+            System.out.println("//---------------------------------------------");
+            System.out.println("Destino: " + key.getNombre());
+            for (int i = 0; i < value.length; i++) {
+                if ((i == 0) && (value[i] != -1)) {
+                    System.out.println("    Costo tiquete aereo: " + value[0] + " pesos.");
+                } else if ((i == 1) && (value[i] != -1)) {
+                    System.out.println("    Costo tiquete terrestre: " + value[1] + " pesos.");
+                } else if ((i == 2) && (value[i] != -1)) {
+                    System.out.println("    Costo tiquete maritimo:  " + value[2] + " pesos.");
+                }
+            }
+        });
+        System.out.println("//---------------------------------------------");
+        System.out.println(" ");
+        return opcionesTransporte;
+    }
+
+    /*
+        METODO ESTRELLA:
+        Este es el método principal y que le da sentido a todo el código.
+        Comienza preguntando por la cédula del viajero para usar el método seleccionarViajero().
+        A continuación se preguntará al método posiblesTransportes por la oferta en particular para el viajero.
+        Si el método anterior no retornó ningún posible transporte que pueda pagar el viajero, entonces terminará el método ahí.
+        Si por el contrario puede pagarlo, se le imprimirá en pantalla la oferta de viajes que puede costear.
+        Se preguntará el nombre del destino que se desee entre la oferta presentada.
+        Si existe, saldrá del while con el destino de viaje asignado.
+        Preguntará a la oferta de viajes, que es un Map, por la oferta para ese destino.
+        Debido a que es un Map, el Destino(key) es el previamente asignado y el int[] son los valores con los que se sabe cuanto cobrar por los tiquetes.
+        Se imprime la oferta de tiquetes, recorriendo el archivo int[]
+        Cada oferta de tiquete tiene un número asignado que el cliente debe escribir en pantalla.
+        Si el viajero solo pudiera costear un viaje y no un hotel, ahí terminaría el código.
+        Si el destino al que se compró transporte, tiene hoteles disponibles y están dentro del presupuesto del viajero, entonces se imprimirá oferta de hoteles.
+        Al final se invoca el método seleccionDiasEstadia para determinar cuantos días se hotel se quieren reservar si es el caso.
+        Al final imprime cualquiera de los dos tipos de tiquete de viajer (Con y sin reserva de hotel).
+    
+     */
     public static void venderTiquete() {
 
         // Variables que se usarán en el método.
@@ -875,36 +980,7 @@ public class Main {
 
     }
 
-    public static Map<Destino, int[]> posiblesTransportes(Viajero viajero) {
-        System.out.println(" ");
-        System.out.println("//------- OFERTA DE TRANSPORTE PARA EL VIAJERO " + viajero.getNombre() + " -------//");
-        System.out.println(" ");
-        System.out.println(" A continuación se imprimirán todas los posibles tiquetes de transporte que podría comprar el viajero.");
-        System.out.println("    Esto último a partir de su presupuesto actual de " + viajero.getPresupuesto() + " pesos.");
-        System.out.println("");
-        System.out.println("//--------------------------------------------------------------------------------------");
-        System.out.println(" ");
-
-        //Proceso para determinar cuales tiquetes de viaje puede costear el Viajero.
-        Map<Destino, int[]> opcionesTransporte = Destino.esPosibleViajar(viajero);
-        opcionesTransporte.forEach((key, value) -> {
-            System.out.println("//---------------------------------------------");
-            System.out.println("Destino: " + key.getNombre());
-            for (int i = 0; i < value.length; i++) {
-                if ((i == 0) && (value[i] != -1)) {
-                    System.out.println("    Costo tiquete aereo: " + value[0] + " pesos.");
-                } else if ((i == 1) && (value[i] != -1)) {
-                    System.out.println("    Costo tiquete terrestre: " + value[1] + " pesos.");
-                } else if ((i == 2) && (value[i] != -1)) {
-                    System.out.println("    Costo tiquete maritimo:  " + value[2] + " pesos.");
-                }
-            }
-        });
-        System.out.println("//---------------------------------------------");
-        System.out.println(" ");
-        return opcionesTransporte;
-    }
-
+    //Método para elegir un Hotel, devuelve mismamente Hotel.
     public static Hotel seleccionHotel(Viajero v, Destino d) {
         boolean c = true;
         Hotel hotel = null;
@@ -926,6 +1002,9 @@ public class Main {
         return hotel;
     }
 
+    //Método que calcula cuantos días se podría hospedar un viajero en un hotel
+    //Luego pregunta cuantos días realmente desea quedarse el cliente
+    //Al final ese número de días se devuelve (int)
     public static int seleccionDiasEstadia(Viajero v, Hotel h) {
         boolean c = true;
         int limiteDias = (int) Math.floor(v.getPresupuesto() / h.getCosto());
@@ -955,6 +1034,8 @@ public class Main {
         }
     }
 
+    //Invoca la impresión de archivos
+    //Recorre la lista de tiquetes en el sistema y la instancia de Texto los imprime 1 por 1.
     public static void imprimirTiquetes() {
 
         System.out.println(" ");

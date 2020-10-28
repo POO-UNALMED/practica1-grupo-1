@@ -55,7 +55,7 @@ public class Destino {
     }
 
     /*
-    Metodo que determina si el presupuesto del viajero es el suficiente para las diferentes ofertas de transporte del
+    Metodo que determina si el presupuesto del viajero es el suficiente para las diferentes ofertas de transporte del programa.
      */
 
     public static Map<Destino, int[]> esPosibleViajar(Viajero v) {

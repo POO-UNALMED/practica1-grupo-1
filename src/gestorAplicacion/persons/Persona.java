@@ -4,9 +4,9 @@ import java.util.*;
 
 public abstract class Persona {
 
-    private int cedula;
-    private String nombre;
-    private boolean visado;
+    protected int cedula;
+    protected String nombre;
+    protected boolean visado;
     public static ArrayList<Persona> listaPersonas = new ArrayList<>();
 
     public Persona(int cedula, String nombre, boolean visado) {
@@ -20,12 +20,14 @@ public abstract class Persona {
 
     }
 
-    // METODOS ABSTRACT
+    // METODOS ABSTRACT: Método que se herederán en las clases hijas Viajero y Agente.
     public abstract void obtenerVisado();
-
-    //public abstract Persona devolverPorCedula(int cedula);
+    
+    public abstract void retirarse();
     
     //MÉTODOS
+    
+    //Verifica si hay alguna persona con el mismo numero de cedula que se ingresa.
     public static boolean verificarCedula(int cedulaEntrante){
         boolean disponible = false;
         for (Persona p : listaPersonas){

@@ -7,6 +7,9 @@ import gestorAplicacion.utils.Tiquete;
 import java.util.*;
 
 public class Texto {
+    
+    //ESTA CLASE TIENE LA UTILIDAD DE IMPRIMIR TEXTOS UNICAMENTE.
+    //Por no saturar el resto de código de impresiones
 
     public void presentacion() {
 
@@ -76,6 +79,7 @@ public class Texto {
         System.out.println("          1. Ver listado de agentes.");
         System.out.println("          2. Agente con mejores ventas.");
         System.out.println("          3. Clientes por agente.");
+        System.out.println("          4. Contratar agente.");
         System.out.println(" ");
         System.out.println("             0. Volver al Menu anterior.");
         System.out.println(" ");
